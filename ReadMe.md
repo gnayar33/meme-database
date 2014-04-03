@@ -83,7 +83,7 @@ select queries
 ###Show categories of each user and how many pictures they've liked in that category
 SELECT username, COUNT(memeid) AS numPics, category.name
 FROM Users, Category
-WHERE users.userid = category.userid
+WHERE users.userid = category.userid and username = 'njiang'
 GROUP BY username, category.name
 ORDER BY numPics
 
@@ -98,6 +98,8 @@ FROM (Users JOIN Follower ON Users.userid = Follower.userid) AS a, followerView 
 
 ###Index on Userid
 CREATE INDEX users ON Users(username)
+
+
 
 
 
