@@ -96,18 +96,18 @@
 			}
 			xmlhttp.onreadystatechange=function() {
 				if (xmlhttp.readyState==4 && xmlhttp.status==200) {
-					if (xmlhttp.responseText == "VALID") {
-						alert("Authentication successful!");
-						//window.location.assign("memedb.php?username=" + str);
-					} else if (xmlhttp.responseText == "NOTFOUND") {
-						alert("User not found!");
+					if (xmlhttp.responseText == "SUCCESS") {
+						alert("User successfully created!");
+						window.location.assign("memedb.php?username=" + username);
+					} else if (xmlhttp.responseText == "EXISTS") {
+						alert("Username already exists!");
 					} else {
-						alert("Authentication failed!");
+			
+						alert("Database failure!");
 					}
 				}
 			}
-			document.getElementById("txtHint").innerHTML = "newuser.php?username="+username+"&password="+password+"&email="+email;
-			xmlhttp.open("GET","newuser.php?username="+username+"&password="+password+"&email="+email,true);
+			xmlhttp.open("GET","newuser.php?username="+username+"&password="+password+"&email="+email+"&phone="+phone,true);
 			xmlhttp.send();
 		}
 	</script>
