@@ -26,10 +26,21 @@
 			<li><a href="#tab1">News Feed</a></li>
 			<li><a href="#tab2">Trending</a></li>
 			<li><a href="#tab3">Following</a></li>
+			<li><a href="#tab4">Upload</a></li>
 		</ul>
  
 		<div class="tabContent" id="tab1">
-			<INPUT TYPE = "Text" VALUE ="username" NAME = "username">
+			<select id = "picCount">
+				<option value="1">1</option>
+				<option value="2">2</option>
+				<option value="3">3</option>
+				<option value="4">4</option>
+			</select>
+			<div id="newsFeed">
+
+
+			</div>
+
 		</div>
  
 		<div class="tabContent" id="tab2">
@@ -39,41 +50,28 @@
 		<div class="tabContent" id="tab3">
 
 		</div>
+		<div class="tabContent" id="tab4">
+
+
+			<form enctype="multipart/form-data" action="image.php" method="POST">
+
+				<input type="hidden" name="MAX_FILE_SIZE" value="300000" />
+				Name : <input type="text" name="name" size="25" length="25" value="">
+
+				<input type="hidden" name="MAX_FILE_SIZE" value="300000" />
+				File: <input name="userfile" type="file" size="25"/>
+
+				<input type="submit" value="Upload" />
+			</form>
+		</div>
 
 		<?php 
 			$buffer=ob_get_contents();
 			ob_end_clean();
 			$buffer=str_replace("%TITLE%","Welcome, " . $_SESSION['userName'],$buffer);
 			echo $buffer;
-		
-			$conn  = pg_connect('user=njiang host=postgres dbname=db password=asdfasdf');
-			echo $_SESSION['userName'];
-			echo '<br><br><br>';
-			if (!$conn) { 
-				echo "Connection failed";
-				exit;
-			}
-
-			$query = sprintf("select * from Users");
-
-			$result = pg_query($conn, $query);
-
-			if (!$result) {
-				echo "An error occured.\n";
-				exit;
-			}
-
-			$thearr = pg_fetch_all($result);
-
-			foreach ($thearr as $tar) {
-				foreach ($tar as $ta) {
-					echo $ta;
-					echo '<br>';
-				}
-
-			}
-
 		?>
+
 	</body>
 
 	<script type = "text/javascript">
@@ -82,7 +80,32 @@
 		var contentDivs = new Array();
  
 		function init() {
-	 
+	 		initTabs();
+			loadNewsFeed();
+		}
+
+		function loadNewsFeed() {
+			
+			if (window.XMLHttpRequest) {
+				// code for IE7+, Firefox, Chrome, Opera, Safari
+				xmlhttp=new XMLHttpRequest();
+			}
+			else {
+				// code for IE6, IE5
+				xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+			}
+			xmlhttp.onreadystatechange=function() {
+				if (xmlhttp.readyState==4 && xmlhttp.status==200) {
+					document.getElementById("newsFeed").innerHTML = xmlhttp.responseText;
+				}
+			}
+
+			xmlhttp.open("GET","fetchimage.php?count=2",true);
+			xmlhttp.send();
+
+		}
+
+		function initTabs() {
 			// Grab the tab links and content divs from the page
 			var tabListItems = document.getElementById('tabs').childNodes;
 			for ( var i = 0; i < tabListItems.length; i++ ) {

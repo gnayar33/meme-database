@@ -10,7 +10,7 @@
 		echo "ConError";
 		exit;
 	}
-	$query = sprintf("select password from users where username = '" . $username .  "'");
+	$query = sprintf("select password from users where username = '$username'");
 	$result = pg_query($conn, $query);
 
 	if (!$result) {
@@ -18,10 +18,15 @@
 		exit;
 	}
 
-	$arr = pg_fetch_array ($result, 0, PGSQL_ASSOC);
-	if ($arr['password'] == $password)
-		echo "TRUE";
-	else
-		echo "FALSE";
-
+	
+	if (pg_fetch_all($result) == false) {
+		echo "NOTFOUND";
+		exit;
+	} else {
+		$arr = pg_fetch_array ($result, 0, PGSQL_ASSOC);
+		if ($arr['password'] == $password)
+			echo "VALID";
+		else
+			echo "INVALID";	
+	}
 ?>

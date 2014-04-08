@@ -1,81 +1,83 @@
 ReadMe
 =====
 
-User(
-	email 	VARCHAR(60)
-	username VARCHAR(60)
-	userid	INT PRIMARY KEY
-	password VARCHAR(60)
-	phone	VARCHAR(10)
-)
+create table users (
+	userid serial primary key,
+	username varchar(50) unique,
+	email varchar(50),
+	password varchar(50),
+	phone varchar(10)
+);
 
-Memes(
-	mid 	INT PRIMARY KEY
-	caption VARCHAR(150)
-	image 	BLOB
-	tag		VARCHAR(30)
-)
 
-Likes(
-	userid 	INT	references User(userid)
-	mid		INT references Memes (mid)
-	date	DATETIME
+create table Memes(
+	mid 	serial PRIMARY KEY,
+	caption VARCHAR(150),
+	image bytea,
+	tag VARCHAR(30)
+);
+
+create table Likes(
+	userid int references Users(userid),
+	mid INT references Memes(mid),
+	date		DATE,
 	PRIMARY KEY (userid,mid)
 )
 
-Follower(
-	fid		INT references User(userid)
-	userid	INT references User(userid)
-	date    DATETIME
+create table Follower(
+	fid INT references Users(userid),
+	userid INT references Users(userid),
+	date DATE,
 	PRIMARY KEY (fid,userid)
 )
 
-Category(
-	name	VARCHAR(30)
-	userid	INT references User(userid)
-	mid		INT references Meme(mid)
-	PRIMARY KEY (userid, name)
+create table Category(
+	name VARCHAR(30),
+	userid INT references Users(userid),
+	mid INT references Memes(mid),
+	PRIMARY KEY (userid, name, mid)
 )
 
 insert queries
 ----------
 
 insert into users values
-(1, 'njiang', 'pw', 'njiang1209@ufl.edu', '9044002166'),
-(2, 'gnayar', 'asdf', 'gnayar@ufl.edu', '3522746511'),
-(3, 'jsmith', 'pw2', 'jsmith@ufl.edu', '1234567890'),
-(4, 'jdoe', 'mypass', 'jdoe@ufl.edu', '1111111111'),
-(5, 'bobama', 'potus', 'barack@ufl.edu', '9876543210'),
-(6, 'cgrant', 'pass', 'cgrant@ufl.edu', '1029384756'),
-(7, 'bmachen', 'pwpw', 'bmachen@ufl.edu', '0987654321')
+(default, 'njiang', 'njiang1209@ufl.edu','pw', '9044002166'),
+(default, 'gnayar', 'gnayar@ufl.edu', 'asdf', '3522746511'),
+(default, 'jsmith', 'jsmith@ufl.edu', 'pw2', '1234567890'),
+(default, 'jdoe', 'jdoe@ufl.edu', 'mypass', '1111111111'),
+(default, 'bobama', 'barack@ufl.edu', 'potus', '9876543210'),
+(default, 'cgrant', 'cgrant@ufl.edu', 'pass', '1029384756'),
+(default, 'bmachen', 'bmachen@ufl.edu', 'pwpw', '0987654321');
 
 
-INSERT INTO memes(memeid,caption,tag) VALUES (1,'samplecaption','sampletag'),
-(2,'samplecaption2','sampletag2'),
-(3,'samplecaption3','sampletag3'),
-(4,'samplecaption4','sampletag4');
+INSERT INTO memes values
+(default,'samplecaption','','sampletag'),
+(default,'samplecaption2','' ,'sampletag2'),
+(default,'samplecaption3','' ,'sampletag3'),
+(default,'samplecaption4','' ,'sampletag4');
 
 
 INSERT INTO likes VALUES 
-(1,1,'2014-4-2'),
-(2,1,'2014-4-2'),
-(2,2,'2014-4-2'),
-(3,1,'2014-4-2'),
-(3,2,'2014-4-2');
+(16,9,'2014-4-2'),
+(17,9,'2014-4-2'),
+(17,10,'2014-4-2'),
+(18,11,'2014-4-2'),
+(18,12,'2014-4-2');
 
 insert into follower values
-(1, 2, '2014-04-02'),
-(1, 3, '2014-03-03'),
-(1, 4, '2014-01-03'),
-(2, 3, '2014-02-14'),
-(4, 6, '2013-02-13'),
-(5, 7, '2014-03-03');
+(16, 17, '2014-04-02'),
+(16, 18, '2014-03-03'),
+(16, 19, '2014-01-03'),
+(17, 16, '2014-02-14'),
+(18, 19, '2013-02-13'),
+(18, 20, '2014-03-03');
 
 INSERT INTO category VALUES 
-('funny',1,1),
-('funny',1,2),
-('cute',2,3),
-('cute',2,4);
+('funny',16,9),
+('funny',16,10),
+('cute',17,11),
+('cute',17,12);
 
 
 select queries
@@ -99,11 +101,4 @@ FROM (Users JOIN Follower ON Users.userid = Follower.userid) AS a, followerView 
 ###Index on Userid
 CREATE INDEX users ON Users(username)
 
-
-
-
-
-
-
-
-
+##insert new user
