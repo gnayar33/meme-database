@@ -22,7 +22,7 @@
 	</ul>
 	 
 	<div class="tabContent" id="tab1">
-		<FORM NAME ="form1" METHOD ="POST" ACTION = "login.php">
+		<FORM NAME ="form1" METHOD ="POST" >
 			Username:
 			<INPUT TYPE = "Text" VALUE ="" NAME = "username">
 			<br>
@@ -35,7 +35,22 @@
 	</div>
  
 	<div class="tabContent" id="tab2">
-
+		<FORM NAME ="form2" METHOD ="POST" >
+			Username:
+			<INPUT TYPE = "Text" VALUE ="" NAME = "newusername">
+			<br>
+			Password:
+			<INPUT TYPE = "Text" VALUE ="" NAME = "newpassword">
+			<br>
+			E-mail:
+			<INPUT TYPE = "Text" VALUE ="" NAME = "newemail">
+			<br>
+			Phone:
+			<INPUT TYPE = "Text" VALUE ="" NAME = "newphone">
+			<br>
+			<INPUT TYPE = "button" Name = "Submit2" VALUE = "Create User" onclick="create(newusername.value, newpassword.value, newemail.value, newphone.value)">
+			<br>
+		</form>
 	</div>
 
 	<div id = "txtHint"> </div>
@@ -56,16 +71,43 @@
 			}
 			xmlhttp.onreadystatechange=function() {
 				if (xmlhttp.readyState==4 && xmlhttp.status==200) {
-					document.getElementById("txtHint").innerHTML=xmlhttp.responseText;
-					if (xmlhttp.responseText == "TRUE") {
+					if (xmlhttp.responseText == "VALID") {
 						alert("Authentication successful!");
 						window.location.assign("memedb.php?username=" + str);
+					} else if (xmlhttp.responseText == "NOTFOUND") {
+						alert("User not found!");
 					} else {
 						alert("Authentication failed!");
 					}
 				}
 			}
 			xmlhttp.open("GET","login.php?username="+str+"&password="+str2,true);
+			xmlhttp.send();
+		}
+		
+		function create(username, password, email, phone) {
+			if (window.XMLHttpRequest) {
+				// code for IE7+, Firefox, Chrome, Opera, Safari
+				xmlhttp=new XMLHttpRequest();
+			}
+			else {
+				// code for IE6, IE5
+				xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+			}
+			xmlhttp.onreadystatechange=function() {
+				if (xmlhttp.readyState==4 && xmlhttp.status==200) {
+					if (xmlhttp.responseText == "VALID") {
+						alert("Authentication successful!");
+						//window.location.assign("memedb.php?username=" + str);
+					} else if (xmlhttp.responseText == "NOTFOUND") {
+						alert("User not found!");
+					} else {
+						alert("Authentication failed!");
+					}
+				}
+			}
+			document.getElementById("txtHint").innerHTML = "newuser.php?username="+username+"&password="+password+"&email="+email;
+			xmlhttp.open("GET","newuser.php?username="+username+"&password="+password+"&email="+email,true);
 			xmlhttp.send();
 		}
 	</script>
