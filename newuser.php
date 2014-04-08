@@ -13,11 +13,7 @@
 		echo "ConError";
 		exit;
 	}
-<<<<<<< HEAD
 	$query = sprintf("select * from users where username = '$username'");
-=======
-	$query = sprintf("select * from users where username = '" . $username .  "'");
->>>>>>> a17684fa33b4971abd68cd8a3906c7c89b79f40f
 	$result = pg_query($conn, $query);
 
 	if (!$result) {
@@ -27,11 +23,7 @@
 
 	
 	if (pg_fetch_all($result) == false) {
-<<<<<<< HEAD
 		$query = sprintf("insert into users values (DEFAULT, '$username','$email','$password','$phone')");
-=======
-		$query = sprintf("insert into users values (DEFAULT, '" . $username . "','"  . $email . "','" .  $password . "','" . $phone . "')");
->>>>>>> a17684fa33b4971abd68cd8a3906c7c89b79f40f
 
 		$result = pg_query($conn, $query);
 		if (!$result) {
