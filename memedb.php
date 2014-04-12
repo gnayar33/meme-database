@@ -26,9 +26,14 @@
 		<ul id="tabs">
 			<li><a href="#tab1">News Feed</a></li>
 			<li><a href="#tab2">Trending</a></li>
+<<<<<<< HEAD
 			<li><a href="#tab3">Upload</a></li>
 			<li><a href="#tab4">Search</a></li>
 			<li><a href="#tab5">Profile</a></li>
+=======
+			<li><a href="#tab3">Following</a></li>
+			<li><a href="#tab4">Upload</a></li>
+>>>>>>> 1c4a0399a35cd965e4ed5b9c46338b24ad7d5f74
 		</ul>
  
 		<div class="tabContent" id="tab1">
@@ -83,7 +88,9 @@
 				</tr>
 			</table>
 		</div>
+		<div class="tabContent" id="tab4">
 
+<<<<<<< HEAD
 		<?php 
 			$buffer=ob_get_contents();
 			ob_end_clean();
@@ -128,6 +135,29 @@
 
 			xmlhttp.open("GET","fetchimage.php?count=2",true);
 			xmlhttp.send();
+=======
+
+			<form enctype="multipart/form-data" action="image.php" method="POST">
+
+				<input type="hidden" name="MAX_FILE_SIZE" value="300000" />
+				Name : <input type="text" name="name" size="25" length="25" value="">
+
+				<input type="hidden" name="MAX_FILE_SIZE" value="300000" />
+				File: <input name="userfile" type="file" size="25"/>
+
+				<input type="submit" value="Upload" />
+			</form>
+		</div>
+
+		<?php 
+			$buffer=ob_get_contents();
+			ob_end_clean();
+			$buffer=str_replace("%TITLE%","Welcome, " . $_SESSION['userName'],$buffer);
+			echo $buffer;
+		?>
+
+	</body>
+>>>>>>> 1c4a0399a35cd965e4ed5b9c46338b24ad7d5f74
 
 		}
 	
@@ -150,6 +180,38 @@
 			xmlhttp2.send();
 		}
 
+<<<<<<< HEAD
+=======
+		var tabLinks = new Array();
+		var contentDivs = new Array();
+ 
+		function init() {
+	 		initTabs();
+			loadNewsFeed();
+		}
+
+		function loadNewsFeed() {
+			
+			if (window.XMLHttpRequest) {
+				// code for IE7+, Firefox, Chrome, Opera, Safari
+				xmlhttp=new XMLHttpRequest();
+			}
+			else {
+				// code for IE6, IE5
+				xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+			}
+			xmlhttp.onreadystatechange=function() {
+				if (xmlhttp.readyState==4 && xmlhttp.status==200) {
+					document.getElementById("newsFeed").innerHTML = xmlhttp.responseText;
+				}
+			}
+
+			xmlhttp.open("GET","fetchimage.php?count=2",true);
+			xmlhttp.send();
+
+		}
+
+>>>>>>> 1c4a0399a35cd965e4ed5b9c46338b24ad7d5f74
 		function initTabs() {
 			// Grab the tab links and content divs from the page
 			var tabListItems = document.getElementById('tabs').childNodes;
