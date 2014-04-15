@@ -73,7 +73,7 @@
 				if (xmlhttp.readyState==4 && xmlhttp.status==200) {
 					if (xmlhttp.responseText == "VALID") {
 						alert("Authentication successful!");
-						window.location.assign("memedb.php?username=" + str);
+						window.location.assign("memedb.php");
 					} else if (xmlhttp.responseText == "NOTFOUND") {
 						alert("User not found!");
 					} else {
@@ -88,18 +88,18 @@
 		function create(username, password, email, phone) {
 			if (window.XMLHttpRequest) {
 				// code for IE7+, Firefox, Chrome, Opera, Safari
-				xmlhttp=new XMLHttpRequest();
+				xmlhttp2=new XMLHttpRequest();
 			}
 			else {
 				// code for IE6, IE5
-				xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+				xmlhttp2=new ActiveXObject("Microsoft.XMLHTTP");
 			}
-			xmlhttp.onreadystatechange=function() {
-				if (xmlhttp.readyState==4 && xmlhttp.status==200) {
-					if (xmlhttp.responseText == "SUCCESS") {
+			xmlhttp2.onreadystatechange=function() {
+				if (xmlhttp2.readyState==4 && xmlhttp2.status==200) {
+					if (xmlhttp2.responseText == "SUCCESS") {
 						alert("User successfully created!");
-						window.location.assign("memedb.php?username=" + username);
-					} else if (xmlhttp.responseText == "EXISTS") {
+						window.location.assign("memedb.php");
+					} else if (xmlhttp2.responseText == "EXISTS") {
 						alert("Username already exists!");
 					} else {
 			
@@ -107,8 +107,8 @@
 					}
 				}
 			}
-			xmlhttp.open("GET","newuser.php?username="+username+"&password="+password+"&email="+email+"&phone="+phone,true);
-			xmlhttp.send();
+			xmlhttp2.open("GET","newuser.php?username="+username+"&password="+password+"&email="+email+"&phone="+phone,true);
+			xmlhttp2.send();
 		}
 	</script>
 

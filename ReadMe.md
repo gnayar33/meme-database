@@ -6,21 +6,24 @@ create table users (
 	username varchar(50) unique,
 	email varchar(50),
 	password varchar(50),
-	phone varchar(10)
+	phone varchar(10),
+	profpic oid
 );
 
 
 create table Memes(
 	mid 	serial PRIMARY KEY,
 	caption VARCHAR(150),
-	image bytea,
-	tag VARCHAR(30)
+	image oid,
+	tag VARCHAR(30),
+	ownerid int references users(userid),
+	uploadtime timestamp default current_timestamp
 );
 
 create table Likes(
 	userid int references Users(userid),
 	mid INT references Memes(mid),
-	date		DATE,
+	time timestamp default current_timestamp
 	PRIMARY KEY (userid,mid)
 )
 

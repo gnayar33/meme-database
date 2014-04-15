@@ -24,8 +24,11 @@
 		exit;
 	} else {
 		$arr = pg_fetch_array ($result, 0, PGSQL_ASSOC);
-		if ($arr['password'] == $password)
+		if ($arr['password'] == $password) {
+			session_start();
+			$_SESSION['userName'] = $username;
 			echo "VALID";
+		}
 		else
 			echo "INVALID";	
 	}
