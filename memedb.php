@@ -34,13 +34,7 @@
 		</ul>
  
 		<div class="tabContent" id="tab1">
-			<select id = "picCount">
-				<option value="1">1</option>
-				<option value="2">2</option>
-				<option value="3">3</option>
-				<option value="4">4</option>
-			</select>
-			<div id="newsFeed">
+			<div id="newsFeed" align = "center">
 
 
 			</div>
@@ -66,7 +60,10 @@
 			</form>
 		</div>
 		<div class="tabContent" id="tab4">
-			
+			<form name = "myform" action = "" method = "GET">
+				Search: <br> <input type = "text" name = "name" size = "25" length = "25" value = "">
+				<p> <input type = "button" value = "Search" onClick = "redirectToProfile(this.form)" >
+			</form>
 
 		</div>
 
@@ -216,7 +213,6 @@
  
 		function showTab() {
 			var selectedId = getHash( this.getAttribute('href') );
- 
 			// Highlight the selected tab, and dim all others.
 			// Also show the selected content div, and hide all others.
 			for ( var id in contentDivs ) {
@@ -260,6 +256,12 @@
 		function getHash( url ) {
 			var hashPos = url.lastIndexOf ( '#' );
 			return url.substring( hashPos + 1 );
+		}
+
+		function redirectToProfile(form) {
+			var name = form.name.value;
+			loadProfile(name);
+			dispTab("tab5");
 		}
 
 
