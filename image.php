@@ -1,6 +1,6 @@
 #!/usr/local/bin/php
 <?php
-
+	session_start();
 	$uploaddir = '/cise/homes/njiang/public_html/images/';
 	$uploadfile = $uploaddir . basename($_FILES['userfile']['name']);
 	$name = $_POST['name'];
@@ -18,10 +18,13 @@
 	$oid = pg_lo_import($conn, $uploadfile);
 	pg_query($conn, "commit");
 
-	
-	$query = sprintf("insert into memes values (default, '$name', 'tag', '$oid')");
+	$query = sprintf("select userid from users where username = '" . $_SESSION['userName'] . "'");
 	$result = pg_query($conn, $query);
-	//echo "insert into memes values (default, '$name', '', '$oid')" . "<br>";
+	$arr = pg_fetch_array($result, 0, PGSQL_ASSOC);
+	$uid = $arr['userid'];
+	
+	$query = sprintf("insert into memes values (default, '$name', '$oid', '$uid', default)");
+	$result = pg_query($conn, $query);
 
 	if($result) {
 		echo "File is valid, and was successfully uploaded.\n";

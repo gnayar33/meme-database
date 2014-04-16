@@ -94,9 +94,15 @@ ORDER BY numPics
 CREATE VIEW followerView AS SELECT DISTINCT username, fid FROM Users, Follower WHERE fid = Users.userid;
 ;
 
+###translation of follower table, showing usernames instead
+CREATE VIEW followerNames as (SELECT a.username, followerView.username AS followername
+FROM (Users JOIN Follower ON Users.userid = Follower.userid) AS a, followerView)
+
+###Find all users a user is following (jsmith)
+select * from followerNames where followername = 'jsmith';
+
 ###Find all followers of a user (jsmith)
-SELECT a.username, followerView.username AS followername
-FROM (Users JOIN Follower ON Users.userid = Follower.userid) AS a, followerView WHERE a.fid = followerView.fid and a.username = 'jsmith'
+select * from followerNames where username = 'jsmith';
 
 ###Index on Userid
 CREATE INDEX users ON Users(username)
