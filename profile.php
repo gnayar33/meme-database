@@ -1,5 +1,4 @@
 #!/usr/local/bin/php
-<<<<<<< HEAD
 <html>
 	<head>
 		<title>%TITLE%</title>
@@ -16,19 +15,6 @@
 
 	<body onload = "init()">
 		<table align = "center" height = 100% width = 100%>
-=======
-<?php
-
-?>
-
-<html>
-	<head>
-		<title>%TITLE%</title>
-	</head>
-
-	<body onload = "init()">
-		<table border = "1" align = "center" height = 100% width = 100%>
->>>>>>> eea4b616e4ad96a463a96ac03dd75fe69fb26f10
 			<tr>
 				<td width = 50% align = "center"> <div id="profPic"> </div> </td>
 				<td width = 30% align = "center"> <div id="username"> </div> <br> <div id = "profile"> </div> </td>
@@ -114,7 +100,6 @@
 				xmlhttp3.send();
 
 			}
-<<<<<<< HEAD
 
 			function newLike(username, loggeduser, image, notLiked) {
 		
@@ -150,8 +135,6 @@
 				xmlhttp4.send();
 				
 			}
-=======
->>>>>>> eea4b616e4ad96a463a96ac03dd75fe69fb26f10
 		
 		</script>
 

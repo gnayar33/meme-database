@@ -3,10 +3,7 @@
 	$username = $_GET['username'];
 	$image = $_GET['image'];
 	$owner = $_GET['owner'];
-<<<<<<< HEAD
 	$notLiked = $_GET['notLiked'];
-=======
->>>>>>> eea4b616e4ad96a463a96ac03dd75fe69fb26f10
 
 	$conn = pg_connect("dbname=db host=postgres user=njiang password=asdfasdf");
 	$query = sprintf("select mid from memes where image = '$image'");
@@ -22,7 +19,6 @@
 	$mid = $arr1[0];
 	$uid = $arr2[0];
 
-<<<<<<< HEAD
 	if ($notLiked == 'true') {
 		$query = sprintf("insert into likes values ( '$uid', '$mid', default)");
 		$result = pg_query($conn, $query);
@@ -46,18 +42,6 @@
 	echo $likes;
 
 	pg_close($conn);
-=======
-	$query = sprintf("insert into likes values ( '$uid', '$mid', default)");
-	$result = pg_query($conn, $query);
-	
-	if ($result) 
-		echo "SUCCESS";
-	else
-		echo "FAILURE";
-
-	pg_close($conn);
-	header("Location: profile.php?username=$owner");
->>>>>>> eea4b616e4ad96a463a96ac03dd75fe69fb26f10
 	die();
 
 ?>

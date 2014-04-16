@@ -23,11 +23,7 @@
 	$arr = pg_fetch_array($result, 0, PGSQL_ASSOC);
 	$uid = $arr['userid'];
 	
-<<<<<<< HEAD
 	$query = sprintf("insert into memes values (default, '$name', '$oid', '$uid', default)");
-=======
-	$query = sprintf("insert into memes values (default, '$name', 'tag', '$oid', '$uid', default)");
->>>>>>> eea4b616e4ad96a463a96ac03dd75fe69fb26f10
 	$result = pg_query($conn, $query);
 
 	if($result) {
