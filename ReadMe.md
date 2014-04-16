@@ -6,21 +6,24 @@ create table users (
 	username varchar(50) unique,
 	email varchar(50),
 	password varchar(50),
-	phone varchar(10)
+	phone varchar(10),
+	profpic oid
 );
 
 
 create table Memes(
 	mid 	serial PRIMARY KEY,
 	caption VARCHAR(150),
-	image bytea,
-	tag VARCHAR(30)
+	image oid,
+	tag VARCHAR(30),
+	ownerid int references users(userid),
+	uploadtime timestamp default current_timestamp
 );
 
 create table Likes(
 	userid int references Users(userid),
 	mid INT references Memes(mid),
-	date		DATE,
+	time timestamp default current_timestamp
 	PRIMARY KEY (userid,mid)
 )
 
@@ -80,6 +83,7 @@ INSERT INTO category VALUES
 ('cute',17,12);
 
 
+<<<<<<< HEAD
 select queries
 ----------
 ###Show categories of each user and how many pictures they've liked in that category
@@ -106,5 +110,6 @@ select * from followerNames where username = 'jsmith';
 
 ###Index on Userid
 CREATE INDEX users ON Users(username)
+=======
+>>>>>>> eea4b616e4ad96a463a96ac03dd75fe69fb26f10
 
-##insert new user

@@ -24,7 +24,12 @@
 	</head>
 
 	<body onload="init()">
+<<<<<<< HEAD
 		<div align = "right"><a href ="login.html">Log Out</a> </div>
+=======
+
+		<div id="profLink"> </div>
+>>>>>>> eea4b616e4ad96a463a96ac03dd75fe69fb26f10
 		<ul id="tabs">
 			<li><a href="#tab1">News Feed</a></li>
 			<li><a href="#tab2">Trending</a></li>
@@ -71,10 +76,17 @@
 		</div>
 
 		<div class="tabContent" id="tab5">
+<<<<<<< HEAD
 			<table width = 100% height = 70%>
 				<tr>
 					<td width = "85%" height = 100%>
 						<iframe id = "profFrame" width = "95%" height = "95%"></iframe>
+=======
+			<table border = 1 width = 100% height = 70%>
+				<tr>
+					<td width = "85%" height = 100%>
+						<iframe id = "profFrame" width = "100%" height = "100%"></iframe>0
+>>>>>>> eea4b616e4ad96a463a96ac03dd75fe69fb26f10
 					</td>
 					<td align = "center">
 						Friends: <br><br>
@@ -110,6 +122,7 @@
 
 		function loadProfile(newProfile) {
 			document.getElementById('profFrame').src = "profile.php?username=" + newProfile;
+<<<<<<< HEAD
 		}
 
 		function newLike(username, loggeduser, image, notLiked) {
@@ -143,6 +156,8 @@
 					+ "&owner=" + username + "&notLiked=" + notLiked,true);
 			xmlhttp4.send();
 			
+=======
+>>>>>>> eea4b616e4ad96a463a96ac03dd75fe69fb26f10
 		}
 
 		function loadNewsFeed() {
