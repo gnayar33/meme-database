@@ -2,8 +2,9 @@
 <html>
 	<head>
 		<title>%TITLE%</title>
-
+		<link rel="stylesheet" type="text/css" href="style.css">
 		<style>
+			
 			table, td, th {
 				border-width:3px; 
 				border-style:groove;
@@ -17,7 +18,11 @@
 		<table align = "center" height = 100% width = 100%>
 			<tr>
 				<td width = 50% align = "center"> <div id="profPic"> </div> </td>
-				<td width = 30% align = "center"> <div id="username"> </div> <br> <div id = "profile"> </div> </td>
+				<td width = 30% align = "center"> 
+					<div id = "username"> </div> <br> 
+					<div id = "profile"> </div> <br>
+					<div id = "following"> </div>
+				</td>
 			</tr>
 			<tr>
 				<td colspan = 2 align= "center"><div id = "imageFeed"></div></td>
@@ -133,7 +138,36 @@
 				xmlhttp4.open("GET","newLike.php?username=" + loggeduser + "&image=" + image 
 						+ "&owner=" + username + "&notLiked=" + notLiked,true);
 				xmlhttp4.send();
-				
+			}
+
+			function follow(username, follower, isfollowed) {
+				alert(username + follower + isfollowed);
+				if (window.XMLHttpRequest) {
+					// code for IE7+, Firefox, Chrome, Opera, Safari
+					xmlhttp5=new XMLHttpRequest();
+				}
+				else {
+					// code for IE6, IE5
+					xmlhttp5=new ActiveXObject("Microsoft.XMLHTTP");
+				}
+				xmlhttp5.onreadystatechange=function() {
+					if (xmlhttp5.readyState==4 && xmlhttp5.status==200) {
+						if (isfollowed) {
+							document.getElementById("follow").innerHTML = "Follow";
+							document.getElementById("follow").onclick = function() {
+								follow(username, follower, false);
+							}
+						} else {
+							document.getElementById("follow").innerHTML = "Unfollow";
+							document.getElementById("follow").onclick = function() {
+								follow(username, follower, true);
+							}
+						}
+					}
+				}
+				xmlhttp5.open("GET","newFollow.php?username=" + username + "&follower=" + follower + 
+						"&isFollowed=" + isfollowed,true);
+				xmlhttp5.send();
 			}
 		
 		</script>

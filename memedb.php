@@ -8,7 +8,7 @@
 <html>
 	<head>
 		<title>%TITLE%</title>
-
+		<link rel="stylesheet" type="text/css" href="style.css">
 		<style type="text/css">
 			body { font-size: 80%; font-family: 'Lucida Grande', Verdana, Arial, Sans-Serif; }
 			ul#tabs { list-style-type: none; margin: 30px 0 0 0; padding: 0 0 0.3em 0; }
@@ -18,7 +18,7 @@
 			ul#tabs li a.selected { color: #000; background-color: #E2E2FF; font-weight: bold; padding: 0.7em 0.3em 0.38em 0.3em; }
 			div.tabContent { border: 1px solid #c9c3ba; padding: 0.5em; background-color: #E2E2FF; }
 			div.tabContent.hide { display: none; }
-				
+			
 			table {  };
 		</style>
 	</head>
@@ -60,10 +60,20 @@
 			</form>
 		</div>
 		<div class="tabContent" id="tab4">
-			<form name = "myform" action = "" method = "GET">
-				Search: <br> <input type = "text" name = "name" size = "25" length = "25" value = "">
-				<p> <input type = "button" value = "Search" onClick = "redirectToProfile(this.form)" >
-			</form>
+			<table >
+				<tr width = "100%" height = 100%>
+					<form name = "myform" action = "" method = "GET">
+						Search: <br> <input type = "text" name = "name" size = "25" length = "25" value = "">
+						<p> <input type = "button" value = "Search" onClick = "redirectToProfile(this.form)" ></p>
+					</form>
+				</tr>
+				<tr align = "center" id = "resultsTable">
+					Results: <br><br>
+					<div id = "resultsTable">
+
+					</div>
+				</tr>
+			</table>
 
 		</div>
 
@@ -259,9 +269,24 @@
 		}
 
 		function redirectToProfile(form) {
-			var name = form.name.value;
-			loadProfile(name);
-			dispTab("tab5");
+			var search = form.name.value;
+
+			if (window.XMLHttpRequest) {
+				// code for IE7+, Firefox, Chrome, Opera, Safari
+				xmlhttp2=new XMLHttpRequest();
+			}
+			else {
+				// code for IE6, IE5
+				xmlhttp2=new ActiveXObject("Microsoft.XMLHTTP");
+			}
+			xmlhttp2.onreadystatechange=function() {
+				if (xmlhttp2.readyState==4 && xmlhttp2.status==200) {
+					document.getElementById("resultsTable").innerHTML = xmlhttp2.responseText;
+				}
+			}
+			
+			xmlhttp2.open("GET","search.php?search=" + search,true);
+			xmlhttp2.send();
 		}
 
 

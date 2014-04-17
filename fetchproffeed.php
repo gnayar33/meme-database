@@ -21,7 +21,7 @@
 		echo "No images found";
 		exit;
 	} else {
-
+		echo "<br><br>";
 		for ($i = 0; $i < count(pg_fetch_all($result)) ; $i++) {
 			$arr = pg_fetch_array($result, $i, PGSQL_ASSOC);
 			$oid = $arr['image'];
@@ -53,19 +53,19 @@
 			if (pg_fetch_all($result3) == false) {
 				$likeLink = 'newLike(&quot;' . $username . '&quot;,&quot;' . 
 					$loggedUser . '&quot;,&quot;' . $oid . '&quot;, true)';
-				echo '<b><font size = 16>' . $arr['caption'] . '</font></b><br>' 
+				echo '<div style="background:#CBCBE6; width:75%; border:5px"><b><font size = 16>' . $arr['caption'] . '</font></b><br>' 
 				. $arr['uploadtime'] . '<br>
 				<IMG SRC=showimage.php?index=c' . $i . '> <br>
 				<button id = b' . $oid . ' type = "button" onclick="' . $likeLink . '">Like</button> <div id = ' . $oid . '>' . $likes
-				. '</div><br><br>';
+				. '</div></div><br><br>';
 			} else {
 				$likeLink = 'newLike(&quot;' . $username . '&quot;,&quot;' . 
 					$loggedUser . '&quot;,&quot;' . $oid . '&quot;, false)';
-				echo '<b><font size = 16>' . $arr['caption'] . '</font></b><br>' 
+				echo '<div style="background:#CBCBE6; width:75%; border: 5px"><b><font size = 16>' . $arr['caption'] . '</font></b><br>' 
 				. $arr['uploadtime'] . '<br>
 				<IMG SRC=showimage.php?index=c' . $i . '> <br>
 				<button id = b' . $oid . ' type = "button" onclick="' . $likeLink . '">Unlike</button> <div id = ' . $oid . '>' . $likes
-				. '</div><br><br>';
+				. '</div></div><br><br>';
 			}
 			
 		}
