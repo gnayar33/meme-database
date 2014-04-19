@@ -53,25 +53,30 @@
 			if (pg_fetch_all($result3) == false) {
 				$likeLink = 'newLike(&quot;' . $username . '&quot;,&quot;' . 
 					$loggedUser . '&quot;,&quot;' . $oid . '&quot;, true)';
-				echo '<div style="background:white; width:75%; border-width: thin"><b><font size = 16>' . $arr['caption'] . '</font></b><br>'
+
+				echo '<table style="background:white; width:75%; border-width: thin">
+				<tr><td width = 5%></td><td align = "middle" width = 65%>
+				<b><font size = 16>' . $arr['caption'] . '</font></b><br>'
 				. '<a href = "javascript:loadProfile(&quot;' 
 				. $arr['username'] . '&quot;);dispTab(&quot;tab5&quot;);">' 
-				. $arr['username'] . '</a>' . '<br>' 
-				. $arr['uploadtime'] . '<br>
+				. $arr['username'] . '</a>' . '<br>				
 				<IMG SRC=showimage.php?index=d' . $i . '> <br>
-				<button id = c' . $oid . ' type = "button" onclick="' . $likeLink . '">Like</button> <div id = ' . $oid . '>' . $likes
-				. '</div></div><br><br>';
+				</td><td align = "middle" width = 20%><button id = c' . $oid . ' type = "button" onclick="' . $likeLink . '">Like</button> 
+				<div id = ' . $oid . '>' . $likes . " like(s)"
+				. '</div><br>' . substr($arr['uploadtime'], 0, 19) . '</td><td width = 10%></tr></tr></table><br><br>';
 			} else {
 				$likeLink = 'newLike(&quot;' . $username . '&quot;,&quot;' . 
 					$loggedUser . '&quot;,&quot;' . $oid . '&quot;, false)';
-				echo '<div style="background:white;width:75%; border:1px"><b><font size = 16>' . $arr['caption'] . '</font></b><br>' 
+				echo '<table style="background:white; width:75%; border-width: thin">
+				<tr><td width = 5%></td><td align = "middle" width = 65%>
+				<b><font size = 16>' . $arr['caption'] . '</font></b><br>'
 				. '<a href = "javascript:loadProfile(&quot;' 
 				. $arr['username'] . '&quot;);dispTab(&quot;tab5&quot;);">' 
-				. $arr['username'] . '</a>' . '<br>' 
-				. $arr['uploadtime'] . '<br>
+				. $arr['username'] . '</a>' . '<br>				
 				<IMG SRC=showimage.php?index=d' . $i . '> <br>
-				<button id = c' . $oid . ' type = "button" onclick="' . $likeLink . '">Unlike</button> <div id = ' . $oid . '>' . $likes
-				. '</div></div><br><br>';
+				</td><td align = "middle" width = 20%><button id = c' . $oid . ' type = "button" onclick="' . $likeLink . '">Unlike</button> 
+				<div id = ' . $oid . '>' . $likes . " like(s)"
+				. '</div><br>' . substr($arr['uploadtime'], 0, 19) . '</td><td width = 10%></tr></tr></table><br><br>';
 			}
 			
 		}

@@ -1,33 +1,47 @@
 button {
-   border-top: 1px solid #96d1f8;
-   background: #4c96c7;
-   background: -webkit-gradient(linear, left top, left bottom, from(#686fc4), to(#4c96c7));
-   background: -webkit-linear-gradient(top, #686fc4, #4c96c7);
-   background: -moz-linear-gradient(top, #686fc4, #4c96c7);
-   background: -ms-linear-gradient(top, #686fc4, #4c96c7);
-   background: -o-linear-gradient(top, #686fc4, #4c96c7);
-   padding: 8px 16px;
-   -webkit-border-radius: 14px;
-   -moz-border-radius: 14px;
-   border-radius: 14px;
-   -webkit-box-shadow: rgba(0,0,0,1) 0 1px 0;
-   -moz-box-shadow: rgba(0,0,0,1) 0 1px 0;
-   box-shadow: rgba(0,0,0,1) 0 1px 0;
-   text-shadow: rgba(0,0,0,.4) 0 1px 0;
-   color: white;
-   font-size: 18px;
-   font-family: 'Lucida Grande', Verdana, Arial, Sans-Serif;
-   text-decoration: none;
-   vertical-align: middle;
+	-moz-box-shadow:inset 0px 1px 0px 0px #dcecfb;
+	-webkit-box-shadow:inset 0px 1px 0px 0px #dcecfb;
+	box-shadow:inset 0px 1px 0px 0px #dcecfb;
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #bddbfa), color-stop(1, #80b5ea) );
+	background:-moz-linear-gradient( center top, #bddbfa 5%, #80b5ea 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#bddbfa', endColorstr='#80b5ea');
+	background-color:#bddbfa;
+	-webkit-border-top-left-radius:0px;
+	-moz-border-radius-topleft:0px;
+	border-top-left-radius:0px;
+	-webkit-border-top-right-radius:0px;
+	-moz-border-radius-topright:0px;
+	border-top-right-radius:0px;
+	-webkit-border-bottom-right-radius:0px;
+	-moz-border-radius-bottomright:0px;
+	border-bottom-right-radius:0px;
+	-webkit-border-bottom-left-radius:0px;
+	-moz-border-radius-bottomleft:0px;
+	border-bottom-left-radius:0px;
+	text-indent:0;
+	border:1px solid #84bbf3;
+	display:inline-block;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	font-style:normal;
+	height:40px;
+	line-height:40px;
+	width:100px;
+	text-decoration:none;
+	text-align:center;
+	text-shadow:1px 1px 0px #528ecc;
    }
 button:hover {
-   border-top-color: #3284ba;
-   background: #3284ba;
-   color: #ccc;
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #80b5ea), color-stop(1, #bddbfa) );
+	background:-moz-linear-gradient( center top, #80b5ea 5%, #bddbfa 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#80b5ea', endColorstr='#bddbfa');
+	background-color:#80b5ea;
    }
 button:active {
-   border-top-color: #458ebf;
-   background: #458ebf;
+	position:relative;
+	top:1px;
    }
 
 body { font-size: 80%; font-family: 'Lucida Grande', Verdana, Arial, Sans-Serif; }

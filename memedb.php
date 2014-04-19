@@ -9,25 +9,14 @@
 	<head>
 		<title>%TITLE%</title>
 		<link rel="stylesheet" type="text/css" href="style.css">
-		<style type="text/css">
-			body { font-size: 80%; font-family: 'Lucida Grande', Verdana, Arial, Sans-Serif; }
-			ul#tabs { list-style-type: none; margin: 30px 0 0 0; padding: 0 0 0.3em 0; }
-			ul#tabs li { display: inline; }
-			ul#tabs li a { color: #42454a; background-color: #CBCBE6; border: 1px solid #c9c3ba; border-bottom: none; padding: 0.3em; text-decoration: none; }
-			ul#tabs li a:hover { background-color: #D6D6FF; }
-			ul#tabs li a.selected { color: #000; background-color: #E2E2FF; font-weight: bold; padding: 0.7em 0.3em 0.38em 0.3em; }
-			div.tabContent { border: 1px solid #c9c3ba; padding: 0.5em; background-color: #E2E2FF; }
-			div.tabContent.hide { display: none; }
-			
-			table {  };
-		</style>
+		
 	</head>
 
 	<body onload="init()">
 		<div align = "right"><a href ="login.html">Log Out</a> </div>
 		<ul id="tabs">
 			<li><a href="#tab1">News Feed</a></li>
-			<li><a href="#tab2">Trending</a></li>
+			<li><a href="#tab2">Browse</a></li>
 			<li><a href="#tab3">Upload</a></li>
 			<li><a href="#tab4">Search</a></li>
 			<li><a href="#tab5">Profile</a></li>
@@ -42,7 +31,16 @@
 		</div>
  
 		<div class="tabContent" id="tab2">
-
+			<table width = 100% height = 90%>
+				<tr>
+					
+					<td width = "15%" align = "right"> <a href = "javascript:trendLeft();">Previous</a></td>
+					<td width = "70%" height = 100%>
+						<div id = "trendDiv" align = "center"> </div>
+					</td>
+					<td width = "15%" align = "left"> <a href = "javascript:trendRight();">Next</a></td>
+				</tr>
+			</table>
 		</div>
 
 		<div class="tabContent" id="tab3">
@@ -55,7 +53,7 @@
 				<br>
 				<input type="hidden" name="MAX_FILE_SIZE" value="300000" />
 				File: <input name="userfile" type="file" size="25"/>
-
+				<br>
 				<input type="submit" value="Upload" />
 			</form>
 		</div>
@@ -78,13 +76,14 @@
 		</div>
 
 		<div class="tabContent" id="tab5">
-			<table width = 100% height = 70%>
+			<table width = 100% height = 90%>
 				<tr>
 					<td width = "85%" height = 100%>
 						<iframe id = "profFrame" width = "95%" height = "95%"></iframe>
 					</td>
 					<td align = "center">
-						Friends: <br><br>
+						<div id = "userLink"> </div><br><br>
+						Your Friends: <br><br>
 						<div id = "followerTable">
 
 						</div>
@@ -99,13 +98,13 @@
 			$buffer=str_replace("%TITLE%","Welcome, " . $_SESSION['userName'],$buffer);
 			echo $buffer;
 		?>
-
 	</body>
 
 	<script type = "text/javascript">
 		var userName;
 		var tabLinks = new Array();
 		var contentDivs = new Array();
+		var currentIndex = 1;
  
 		function init() {
 			userName = "<?php echo $_SESSION['userName']; ?>";
@@ -113,6 +112,7 @@
 			loadNewsFeed();
 			loadFollowers();
 			loadProfile(userName);
+			loadTrending(currentIndex);
 		}
 
 		function loadProfile(newProfile) {
@@ -130,7 +130,7 @@
 			}
 			xmlhttp4.onreadystatechange=function() {
 				if (xmlhttp4.readyState==4 && xmlhttp4.status==200) {
-					document.getElementById(image).innerHTML = xmlhttp4.responseText;
+					document.getElementById(image).innerHTML = xmlhttp4.responseText + " like(s)";
 					if (notLiked) {
 						document.getElementById("c" + image).innerHTML = "Unlike";
 						document.getElementById("c" + image).onclick = function() {
@@ -190,6 +190,9 @@
 			
 			xmlhttp2.open("GET","followers.php?username=" + userName,true);
 			xmlhttp2.send();
+
+			document.getElementById("userLink").innerHTML = 
+				'<a href = "javascript:loadProfile(&quot;' + userName + '&quot;);">Your Profile</a>'
 		}
 
 		function initTabs() {
@@ -273,22 +276,59 @@
 
 			if (window.XMLHttpRequest) {
 				// code for IE7+, Firefox, Chrome, Opera, Safari
-				xmlhttp2=new XMLHttpRequest();
+				xmlhttp3=new XMLHttpRequest();
 			}
 			else {
 				// code for IE6, IE5
-				xmlhttp2=new ActiveXObject("Microsoft.XMLHTTP");
+				xmlhttp3=new ActiveXObject("Microsoft.XMLHTTP");
 			}
-			xmlhttp2.onreadystatechange=function() {
-				if (xmlhttp2.readyState==4 && xmlhttp2.status==200) {
-					document.getElementById("resultsTable").innerHTML = xmlhttp2.responseText;
+			xmlhttp3.onreadystatechange=function() {
+				if (xmlhttp3.readyState==4 && xmlhttp3.status==200) {
+					document.getElementById("resultsTable").innerHTML = xmlhttp3.responseText;
 				}
 			}
 			
-			xmlhttp2.open("GET","search.php?search=" + search,true);
-			xmlhttp2.send();
+			xmlhttp3.open("GET","search.php?search=" + search,true);
+			xmlhttp3.send();
 		}
 
+		function loadTrending(selectedIndex) {
+			if (window.XMLHttpRequest) {
+				// code for IE7+, Firefox, Chrome, Opera, Safari
+				xmlhttp4=new XMLHttpRequest();
+			}
+			else {
+				// code for IE6, IE5
+				xmlhttp4=new ActiveXObject("Microsoft.XMLHTTP");
+			}
+			xmlhttp4.onreadystatechange=function() {
+				if (xmlhttp4.readyState==4 && xmlhttp4.status==200) {
+					if (xmlhttp4.responseText == "NOIMAGE") {
+						if (currentIndex == 0) {
+							currentIndex += 1;
+							loadTrending(currentIndex);
+						} else {
+							currentIndex -= 1;
+							loadTrending(currentIndex);
+						}
+					} else {
+						document.getElementById("trendDiv").innerHTML = xmlhttp4.responseText;
+					}
+				}
+			}
+			
+			xmlhttp4.open("GET","fetchtrending.php?index=" + selectedIndex,true);
+			xmlhttp4.send();
+		}
 
+		function trendRight() {
+			currentIndex += 1;
+			loadTrending(currentIndex);
+		}
+
+		function trendLeft() {
+			currentIndex -= 1;
+			loadTrending(currentIndex);
+		}
 	</script>
 </html>

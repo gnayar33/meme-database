@@ -53,19 +53,26 @@
 			if (pg_fetch_all($result3) == false) {
 				$likeLink = 'newLike(&quot;' . $username . '&quot;,&quot;' . 
 					$loggedUser . '&quot;,&quot;' . $oid . '&quot;, true)';
-				echo '<div style="background:#CBCBE6; width:75%; border:5px"><b><font size = 16>' . $arr['caption'] . '</font></b><br>' 
-				. $arr['uploadtime'] . '<br>
+
+				echo '<table style="background:#CBCBE6; width:75%; border-width: thin">
+				<tr><td width = 10%></td><td align = "middle" width = 50%>
+				<b><font size = 16>' . $arr['caption'] . '</font></b><br>'
+				 . '<br>				
 				<IMG SRC=showimage.php?index=c' . $i . '> <br>
-				<button id = b' . $oid . ' type = "button" onclick="' . $likeLink . '">Like</button> <div id = ' . $oid . '>' . $likes
-				. '</div></div><br><br>';
+				</td><td align = "middle" width = 20%><button id = b' . $oid . ' type = "button" onclick="' . $likeLink . '">Like</button> 
+				<div id = ' . $oid . '>' . $likes . " like(s)"
+				. '</div><br>' . substr($arr['uploadtime'], 0, 19) . '</td><td width = 20%></tr></tr></table><br><br>';
 			} else {
 				$likeLink = 'newLike(&quot;' . $username . '&quot;,&quot;' . 
 					$loggedUser . '&quot;,&quot;' . $oid . '&quot;, false)';
-				echo '<div style="background:#CBCBE6; width:75%; border: 5px"><b><font size = 16>' . $arr['caption'] . '</font></b><br>' 
-				. $arr['uploadtime'] . '<br>
+				echo '<table style="background:#CBCBE6; width:75%; border-width: thin">
+				<tr><td width = 10%></td><td align = "middle" width = 50%>
+				<b><font size = 16>' . $arr['caption'] . '</font></b><br>'
+				 . '<br>				
 				<IMG SRC=showimage.php?index=c' . $i . '> <br>
-				<button id = b' . $oid . ' type = "button" onclick="' . $likeLink . '">Unlike</button> <div id = ' . $oid . '>' . $likes
-				. '</div></div><br><br>';
+				</td><td align = "middle" width = 20%><button id = b' . $oid . ' type = "button" onclick="' . $likeLink . '">Unlike</button> 
+				<div id = ' . $oid . '>' . $likes . " like(s)"
+				. '</div><br>' . substr($arr['uploadtime'], 0, 19) . '</td><td width = 20%></tr></tr></table><br><br>';
 			}
 			
 		}

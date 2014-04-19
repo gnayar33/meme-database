@@ -5,18 +5,12 @@
 		<link rel="stylesheet" type="text/css" href="style.css">
 		<style>
 			
-			table, td, th {
-				border-width:3px; 
-				border-style:groove;
-				border-color:#75A3FF;
-				background-color:white;
-			}
 		</style>
 	</head>
 
 	<body onload = "init()">
 		<table align = "center" height = 100% width = 100%>
-			<tr>
+			<tr bgcolor = "white">
 				<td width = 50% align = "center"> <div id="profPic"> </div> </td>
 				<td width = 30% align = "center"> 
 					<div id = "username"> </div> <br> 
@@ -118,7 +112,7 @@
 				}
 				xmlhttp4.onreadystatechange=function() {
 					if (xmlhttp4.readyState==4 && xmlhttp4.status==200) {
-						document.getElementById(image).innerHTML = xmlhttp4.responseText;
+						document.getElementById(image).innerHTML = xmlhttp4.responseText + " like(s)";
 						if (notLiked) {
 							document.getElementById("b" + image).innerHTML = "Unlike";
 							document.getElementById("b" + image).onclick = function() {
@@ -141,7 +135,6 @@
 			}
 
 			function follow(username, follower, isfollowed) {
-				alert(username + follower + isfollowed);
 				if (window.XMLHttpRequest) {
 					// code for IE7+, Firefox, Chrome, Opera, Safari
 					xmlhttp5=new XMLHttpRequest();

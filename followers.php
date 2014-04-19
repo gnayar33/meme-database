@@ -20,7 +20,7 @@
 	}
 
 	if (pg_fetch_all($result) == false) {
-		echo "NOFOLLOWS";
+		echo "No Followers";
 		exit;
 	} else {
 		foreach (pg_fetch_all($result) as $rows) {
