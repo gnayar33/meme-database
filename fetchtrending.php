@@ -3,11 +3,7 @@
 	$selectedIndex = $_GET['index'];
 	$conn = pg_connect('user=njiang host=postgres dbname=db password=asdfasdf');
 
-	$query = sprintf("select row_number() over (order by sum(trendscore) desc), caption, 
-				d.mid, sum(trendscore) as s, username, image from (select *, 1/(2^ 
-				(extract(epoch from age(current_timestamp,time))/100000)) as trendScore from likes) d, 
-				memes, users where d.mid = memes.mid and users.userid = ownerid 
-				group by d.mid, image, caption, username order by s desc");
+	$query = sprintf("select * from getrank");
 			
 	$result = pg_query($conn, $query);
 	$arr = pg_fetch_array($result, $selectedIndex - 1, PGSQL_ASSOC);

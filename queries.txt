@@ -33,6 +33,12 @@ fetches profile information about a user
 ###
 select * from users where username = '$username'
 
+fetchtrending.php
+-----
+gets all images and their ranks
+###
+select * from getrank;
+
 
 image.php
 -----
@@ -61,6 +67,14 @@ WHERE a.fid = followerview.fid;
 	
 ###
 CREATE VIEW followerView AS SELECT DISTINCT username, fid FROM Users, Follower WHERE fid = Users.userid
+
+shows all images and their scores and ranks
+###
+CREATE VIEW getrank as select row_number() over (order by sum(trendscore) desc), caption, 
+d.mid, sum(trendscore) as s, username, image from (select *, 1/(2^ 
+(extract(epoch from age(current_timestamp,time))/100000)) as trendScore from likes) d, 
+memes, users where d.mid = memes.mid and users.userid = ownerid 
+group by d.mid, image, caption, username order by s desc
 	
 	
 unused
