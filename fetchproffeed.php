@@ -54,25 +54,25 @@
 				$likeLink = 'newLike(&quot;' . $username . '&quot;,&quot;' . 
 					$loggedUser . '&quot;,&quot;' . $oid . '&quot;, true)';
 
-				echo '<table style="background:#CBCBE6; width:75%; border-width: thin">
-				<tr><td width = 10%></td><td align = "middle" width = 50%>
-				<b><font size = 16>' . $arr['caption'] . '</font></b><br>'
+				echo '<table style="background:#CBCBE6; width:100%; border-width: thin">
+				<tr><td width = 10%></td><td align = "middle" width = 70%>
+				<b><font size = 6>' . $arr['caption'] . '</font><br>'
 				 . '<br>				
 				<IMG SRC=showimage.php?index=c' . $i . '> <br>
-				</td><td align = "middle" width = 20%><button id = b' . $oid . ' type = "button" onclick="' . $likeLink . '">Like</button> 
+				</td><td align = "middle" width = 15%><button id = b' . $oid . ' type = "button" onclick="' . $likeLink . '">Like</button> 
 				<div id = ' . $oid . '>' . $likes . " like(s)"
-				. '</div><br>' . substr($arr['uploadtime'], 0, 19) . '</td><td width = 20%></tr></tr></table><br><br>';
+				. '</div><br>' . substr($arr['uploadtime'], 0, 19) . '</td><td width = 5%></tr></tr></table><br><br>';
 			} else {
 				$likeLink = 'newLike(&quot;' . $username . '&quot;,&quot;' . 
 					$loggedUser . '&quot;,&quot;' . $oid . '&quot;, false)';
-				echo '<table style="background:#CBCBE6; width:75%; border-width: thin">
-				<tr><td width = 10%></td><td align = "middle" width = 50%>
-				<b><font size = 16>' . $arr['caption'] . '</font></b><br>'
+				echo '<table style="background:#CBCBE6; width:100%; border-width: thin">
+				<tr><td width = 10%></td><td align = "middle" width = 70%>
+				<b><font size = 6>' . $arr['caption'] . '</font></b><br>'
 				 . '<br>				
 				<IMG SRC=showimage.php?index=c' . $i . '> <br>
-				</td><td align = "middle" width = 20%><button id = b' . $oid . ' type = "button" onclick="' . $likeLink . '">Unlike</button> 
+				</td><td align = "middle" width = 15%><button id = b' . $oid . ' type = "button" onclick="' . $likeLink . '">Unlike</button> 
 				<div id = ' . $oid . '>' . $likes . " like(s)"
-				. '</div><br>' . substr($arr['uploadtime'], 0, 19) . '</td><td width = 20%></tr></tr></table><br><br>';
+				. '</div><br>' . substr($arr['uploadtime'], 0, 19) . '</td><td width = 5%></tr></tr></table><br><br>';
 			}
 			
 		}

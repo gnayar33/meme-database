@@ -20,6 +20,7 @@
 			<li><a href="#tab3">Upload</a></li>
 			<li><a href="#tab4">Search</a></li>
 			<li><a href="#tab5">Profile</a></li>
+			<li><a href="#tab6">Favorites</a></li>
 		</ul>
  
 		<div class="tabContent" id="tab1">
@@ -91,6 +92,13 @@
 				</tr>
 			</table>
 		</div>
+		<div class="tabContent" id="tab6">
+			<div id="favorites" align = "center">
+
+
+			</div>
+
+		</div>
 
 		<?php 
 			$buffer=ob_get_contents();
@@ -113,6 +121,7 @@
 			loadFollowers();
 			loadProfile(userName);
 			loadTrending(currentIndex);
+			loadFavorites();
 		}
 
 		function loadProfile(newProfile) {
@@ -171,6 +180,25 @@
 			xmlhttp.open("GET","fetchnewsfeed.php?username=" + userName,true);
 			xmlhttp.send();
 
+		}
+
+		function loadFavorites() {
+			if (window.XMLHttpRequest) {
+				// code for IE7+, Firefox, Chrome, Opera, Safari
+				xmlhttp5=new XMLHttpRequest();
+			}
+			else {
+				// code for IE6, IE5
+				xmlhttp5=new ActiveXObject("Microsoft.XMLHTTP");
+			}
+			xmlhttp5.onreadystatechange=function() {
+				if (xmlhttp5.readyState==4 && xmlhttp5.status==200) {
+					document.getElementById("favorites").innerHTML = xmlhttp5.responseText;
+				}
+			}
+
+			xmlhttp5.open("GET","fetchfavorites.php?username=" + userName,true);
+			xmlhttp5.send();
 		}
 	
 		function loadFollowers() {
@@ -295,15 +323,15 @@
 		function loadTrending(selectedIndex) {
 			if (window.XMLHttpRequest) {
 				// code for IE7+, Firefox, Chrome, Opera, Safari
-				xmlhttp4=new XMLHttpRequest();
+				xmlhttp3=new XMLHttpRequest();
 			}
 			else {
 				// code for IE6, IE5
-				xmlhttp4=new ActiveXObject("Microsoft.XMLHTTP");
+				xmlhttp3=new ActiveXObject("Microsoft.XMLHTTP");
 			}
-			xmlhttp4.onreadystatechange=function() {
-				if (xmlhttp4.readyState==4 && xmlhttp4.status==200) {
-					if (xmlhttp4.responseText == "NOIMAGE") {
+			xmlhttp3.onreadystatechange=function() {
+				if (xmlhttp3.readyState==4 && xmlhttp3.status==200) {
+					if (xmlhttp3.responseText == "NOIMAGE") {
 						if (currentIndex == 0) {
 							currentIndex += 1;
 							loadTrending(currentIndex);
@@ -312,13 +340,13 @@
 							loadTrending(currentIndex);
 						}
 					} else {
-						document.getElementById("trendDiv").innerHTML = xmlhttp4.responseText;
+						document.getElementById("trendDiv").innerHTML = xmlhttp3.responseText;
 					}
 				}
 			}
 			
-			xmlhttp4.open("GET","fetchtrending.php?index=" + selectedIndex,true);
-			xmlhttp4.send();
+			xmlhttp3.open("GET","fetchtrending.php?index=" + selectedIndex,true);
+			xmlhttp3.send();
 		}
 
 		function trendRight() {

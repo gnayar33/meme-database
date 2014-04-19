@@ -62,3 +62,8 @@ th.searchth {
   background: lightblue;
   border-color: white;
 }
+
+img{
+    max-width:600px; /* you can use % */
+    height: auto;
+}

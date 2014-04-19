@@ -156,6 +156,8 @@
 								follow(username, follower, true);
 							}
 						}
+						parent.loadFollowers();
+						parent.loadNewsFeed();
 					}
 				}
 				xmlhttp5.open("GET","newFollow.php?username=" + username + "&follower=" + follower + 
