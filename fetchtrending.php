@@ -43,11 +43,11 @@
 
 	echo '<a href = "javascript:loadProfile(&quot;' 
 				. $arr['username'] . '&quot;);dispTab(&quot;tab5&quot;);">' 
-				. $arr['username'] . '</a>';
+				. $arr['username'] . '</a>';//ECHO NAME
 	echo "<br>";
-	echo '<IMG SRC=showimage.php?index=t><br>';
-	echo "<b>" . $arr['caption'] . "</b><br>";
-	echo '(Rank ' . $selectedIndex . ')<br>';
+	echo '<IMG SRC=showimage.php?index=t><br>';//ECHO IMAGE
+	echo "<b>" . $arr['caption'] . "</b><br>";//ECHO CAPTION
+	echo '#' . $selectedIndex . '<br>';
 	if (pg_fetch_all($result3) == false) {
 		$likeLink = 'newLike(&quot;' . 
 		$loggedUser . '&quot;,&quot;' . $oid . '&quot;, true, &quot;trend&quot;)';
@@ -59,6 +59,30 @@
 		echo '<button id = t' . $oid . ' type = "button" onclick="' . $likeLink . '">Unlike</button>';
 	}
 
-	echo '<div id = tl' . $oid . '>' . $likes . " like(s)". '</div>'
+	echo '<div id = tl' . $oid . '>' . $likes . " like(s)". '</div>';
+	//echo $arr['mid'];
+	$query2 = sprintf("select username,comment from comments,users where comments.mid = '" . $arr['mid'] . "'  and comments.userid = users.userid");
+	//echo $query2;
+	$result2 = pg_query($conn, $query2);
+		if (!$result2) {
+		//echo "No results";
+		exit;
+	}
+
+	echo '<table class="table table-striped table-bordered table-condensed table-hover">';
+	while($row = pg_fetch_row($result2)){
+		echo '<tr>';
+		echo '<td  class = "searchtd">' . $row[0] . '</td><td  class = "searchtd">' . $row[1] . '</td>'; 
+		echo '</tr>';
+	}
+	echo '</table>';
+
+	echo '<div class = "form-group">
+		<form name = "myform" action = "" method = "GET">
+			<input type = "text" class = "form-control" name = "name" placeholder ="Comment" maxlength="10"><br>	
+				<input type = "button" class = "btn btn-default" value = "Submit" onClick = "addComment(this.form, ' . $arr['mid'] . ')" >
+			</form>
+		</div>';
+
 
 ?>

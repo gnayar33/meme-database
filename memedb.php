@@ -13,11 +13,12 @@ if (!isset($_SESSION["userName"])){
 	<title>%TITLE%</title>
 
 	<link href="css/bootstrap.min.css" rel="stylesheet">
-
+	<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
 	<link href="css/bootstrap-theme.min.css" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="style.css">
 	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
+	
 </head>
 
 <body onload="init()">
@@ -63,13 +64,14 @@ if (!isset($_SESSION["userName"])){
 			<table width = 100% height = 90%>
 				<tr>
 
-					<td width = "15%" align = "right"> <a href = "javascript:trendLeft();">Previous</a></td>
+					<td width = "15%" align = "right"> <a href = "javascript:trendLeft();"><i class="fa fa-angle-left fa-5x"></i></a></td>
 					<td width = "70%" height = 100%>
 						<div id = "trendDiv" align = "center"> </div>
 					</td>
-					<td width = "15%" align = "left"> <a href = "javascript:trendRight();">Next</a></td>
+					<td width = "15%" align = "left"> <a href = "javascript:trendRight();"><i class="fa fa-angle-right fa-5x"></i></a></td>
 				</tr>
 			</table>
+
 		</div>
 
 		<div class="tabContent" id="tab3">
@@ -178,6 +180,8 @@ if (!isset($_SESSION["userName"])){
 				if (xmlhttp4.readyState==4 && xmlhttp4.status==200) {
 					if (source == "trend") {
 						document.getElementById("tl" + image).innerHTML = xmlhttp4.responseText + " like(s)";
+					} else if (source == "fav") {
+						document.getElementById("fl" + image).innerHTML = xmlhttp4.responseText + " like(s)";
 					} else {
 						document.getElementById(image).innerHTML = xmlhttp4.responseText + " like(s)";
 					}
@@ -187,6 +191,12 @@ if (!isset($_SESSION["userName"])){
 							document.getElementById("t" + image).onclick = function() {
 								newLike(loggeduser, image, false, "trend");
 							}
+						} else if (source == "fav") {
+							document.getElementById("f" + image).innerHTML = "Unlike";
+							document.getElementById("f" + image).onclick = function() {
+								newLike(loggeduser, image, false, "fav");
+							}
+
 						} else {
 							document.getElementById("c" + image).innerHTML = "Unlike";
 							document.getElementById("c" + image).onclick = function() {
@@ -198,6 +208,11 @@ if (!isset($_SESSION["userName"])){
 							document.getElementById("t" + image).innerHTML = "Like";
 							document.getElementById("t" + image).onclick = function() {
 								newLike(loggeduser, image, true, "trend");
+							}
+						} else if (source == "fav") { 
+							document.getElementById("f" + image).innerHTML = "Like";
+							document.getElementById("f" + image).onclick = function() {
+								newLike(loggeduser, image, true, "fav");
 							}
 						} else {
 							document.getElementById("c" + image).innerHTML = "Like";

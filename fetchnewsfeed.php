@@ -8,7 +8,7 @@
 	$conn = pg_connect('user=njiang host=postgres dbname=db password=asdfasdf');
 
 	$query = sprintf("select image, uploadtime, caption, users.username from memes, users, followernames where userid = ownerid
-				and followername = '$loggedUser' and users.username = followernames.username");
+				and followername = '$loggedUser' and users.username = followernames.username order by uploadtime desc");
 
 	$result = pg_query($conn, $query);
 
