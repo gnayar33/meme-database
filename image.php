@@ -4,6 +4,7 @@
 	$uploaddir = '/cise/homes/njiang/public_html/images/';
 	$uploadfile = $uploaddir . basename($_FILES['userfile']['name']);
 	$name = $_POST['name'];
+	$prof = $_POST['prof'];
 
 	if (move_uploaded_file($_FILES['userfile']['tmp_name'], $uploadfile)) {   
 		// echo "File is valid, and was successfully uploaded.\n";
@@ -32,6 +33,11 @@
 	} else {
 		echo "Filename already exists. Use another filename. Enter all the values.";
 		unlink($uploadfile);
+	}
+
+	if ($prof == "set") {
+		$query = sprintf("update users set profpic = '$oid' where userid = '$uid'");
+		$result = pg_query($conn, $query);
 	}
 	
 	pg_close($conn);

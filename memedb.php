@@ -74,6 +74,7 @@ if (!isset($_SESSION["userName"])){
 
 		<div class="tabContent" id="tab3">
 
+
 		<div class = "form-group">
 			<form enctype="multipart/form-data" action="image.php" method="POST">
 
@@ -84,7 +85,7 @@ if (!isset($_SESSION["userName"])){
 				<input name="userfile" placeholder ="File" type="file" size="25"/>
 				<br>
 				<label>
-				<input name="prof" type="checkbox"> Set As Profile Picture
+				<input name="prof" type="checkbox" value ="set"> Set As Profile Picture
 				</label>
 				<div>
 				<input type="submit" class = "btn btn-default" value = "Submit" />
