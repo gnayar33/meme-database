@@ -1,28 +1,59 @@
 #!/usr/local/bin/php
 <?php
-	session_start();
-	if (!isset($_SESSION["userName"])){
-		header("Location: login.html");
-	}
+session_start();
+if (!isset($_SESSION["userName"])){
+	header("Location: login.html");
+}
 ?>
 <html>
-	<head>
-		<title>%TITLE%</title>
-		<link rel="stylesheet" type="text/css" href="style.css">
-		
-	</head>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>%TITLE%</title>
 
-	<body onload="init()">
-		<div align = "right"><a href ="login.html">Log Out</a> </div>
-		<ul id="tabs">
-			<li><a href="#tab1">News Feed</a></li>
-			<li><a href="#tab2">Browse</a></li>
-			<li><a href="#tab3">Upload</a></li>
-			<li><a href="#tab4">Search</a></li>
-			<li><a href="#tab5">Profile</a></li>
-			<li><a href="#tab6">Favorites</a></li>
-		</ul>
- 
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+
+	<link href="css/bootstrap-theme.min.css" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+</head>
+
+<body onload="init()">
+	<div class="navbar navbar-inverse navbar-fixed-top " role="navigation">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#">MemeDB</a>
+			</div>
+			<div class="navbar-collapse collapse">
+				<ul id = "tabs" class="nav navbar-nav">
+					<li><a href="#tab1">News Feed</a></li>
+					<li><a href="#tab2">Browse</a></li>
+					<li><a href="#tab3">Upload</a></li>
+					<li><a href="#tab4">Search</a></li>
+					<li><a href="#tab5">Profile</a></li>
+					<li><a href="#tab6">Favorites</a></li>
+					
+
+				</ul>
+				<ul class = "nav navbar-nav">
+					<li><a href ="login.html">Log Out</a></li>
+				</ul>
+			</div><!--/.nav-collapse -->
+		</div>
+	</div>
+
+
+	<div align = "right"><a href ="login.html">Log Out</a> </div>
+
+	<div class="container">
 		<div class="tabContent" id="tab1">
 			<div id="newsFeed" align = "center">
 
@@ -30,11 +61,11 @@
 			</div>
 
 		</div>
- 
+
 		<div class="tabContent" id="tab2">
 			<table width = 100% height = 90%>
 				<tr>
-					
+
 					<td width = "15%" align = "right"> <a href = "javascript:trendLeft();">Previous</a></td>
 					<td width = "70%" height = 100%>
 						<div id = "trendDiv" align = "center"> </div>
@@ -59,20 +90,21 @@
 			</form>
 		</div>
 		<div class="tabContent" id="tab4">
-			<table >
-				<tr width = "100%" height = 100%>
-					<form name = "myform" action = "" method = "GET">
-						Search: <br> <input type = "text" name = "name" size = "25" length = "25" value = "">
-						<p> <input type = "button" value = "Search" onClick = "redirectToProfile(this.form)" ></p>
-					</form>
-				</tr>
-				<tr align = "center" id = "resultsTable">
-					Results: <br><br>
-					<div id = "resultsTable">
 
-					</div>
-				</tr>
-			</table>
+			
+			<div class = "form-group">
+				<form name = "myform" action = "" method = "GET">
+					<input type = "text" class = "form-control" name = "name" placeholder ="Search" maxlength="10"><br>
+					
+					<input type = "button" class = "btn btn-default" value = "Submit" onClick = "redirectToProfile(this.form)" >
+				</form>
+			</div>
+			<div align = "center" id = "resultsTable">
+				<div id = "resultsTable">
+
+				</div>
+			</div>
+
 
 		</div>
 
@@ -99,38 +131,39 @@
 			</div>
 
 		</div>
+	</div>
 
-		<?php 
-			$buffer=ob_get_contents();
-			ob_end_clean();
-			$buffer=str_replace("%TITLE%","Welcome, " . $_SESSION['userName'],$buffer);
-			echo $buffer;
-		?>
-	</body>
+	<?php 
+	$buffer=ob_get_contents();
+	ob_end_clean();
+	$buffer=str_replace("%TITLE%","Welcome, " . $_SESSION['userName'],$buffer);
+	echo $buffer;
+	?>
+</body>
 
-	<script type = "text/javascript">
-		var userName;
-		var tabLinks = new Array();
-		var contentDivs = new Array();
-		var currentIndex = 1;
- 
-		function init() {
-			userName = "<?php echo $_SESSION['userName']; ?>";
-	 		initTabs();
-			loadNewsFeed();
-			loadFollowers();
-			loadProfile(userName);
-			loadTrending(currentIndex);
-			loadFavorites();
-		}
+<script type = "text/javascript">
+	var userName;
+	var tabLinks = new Array();
+	var contentDivs = new Array();
+	var currentIndex = 1;
 
-		function loadProfile(newProfile) {
-			document.getElementById('profFrame').src = "profile.php?username=" + newProfile;
-		}
+	function init() {
+		userName = "<?php echo $_SESSION['userName']; ?>";
+		initTabs();
+		loadNewsFeed();
+		loadFollowers();
+		loadProfile(userName);
+		loadTrending(currentIndex);
+		loadFavorites();
+	}
 
-		function newLike(username, loggeduser, image, notLiked) {
+	function loadProfile(newProfile) {
+		document.getElementById('profFrame').src = "profile.php?username=" + newProfile;
+	}
+
+	function newLike(username, loggeduser, image, notLiked) {
 		
-			if (window.XMLHttpRequest) {
+		if (window.XMLHttpRequest) {
 				// code for IE7+, Firefox, Chrome, Opera, Safari
 				xmlhttp4=new XMLHttpRequest();
 			} else {
@@ -153,10 +186,10 @@
 					}
 				}
 			}
-		
+
 			var userName = "<?php echo ($_GET['username']); ?>";
 			xmlhttp4.open("GET","newLike.php?username=" + loggeduser + "&image=" + image 
-					+ "&owner=" + username + "&notLiked=" + notLiked,true);
+				+ "&owner=" + username + "&notLiked=" + notLiked,true);
 			xmlhttp4.send();
 			
 		}
@@ -200,7 +233,7 @@
 			xmlhttp5.open("GET","fetchfavorites.php?username=" + userName,true);
 			xmlhttp5.send();
 		}
-	
+
 		function loadFollowers() {
 			if (window.XMLHttpRequest) {
 				// code for IE7+, Firefox, Chrome, Opera, Safari
@@ -220,7 +253,7 @@
 			xmlhttp2.send();
 
 			document.getElementById("userLink").innerHTML = 
-				'<a href = "javascript:loadProfile(&quot;' + userName + '&quot;);">Your Profile</a>'
+			'<a href = "javascript:loadProfile(&quot;' + userName + '&quot;);">Your Profile</a>'
 		}
 
 		function initTabs() {
@@ -241,17 +274,17 @@
 				tabLinks[id].onclick = showTab;
 				tabLinks[id].onfocus = function() { this.blur() };
 				if ( i == 0 ) tabLinks[id].className = 'selected';
-					i++;
+				i++;
 			}
-	 
+
 			// Hide all content divs except the first
 			var i = 0;
 			for ( var id in contentDivs ) {
 				if ( i != 0 ) contentDivs[id].className = 'tabContent hide';
-					i++;
+				i++;
 			}
 		}
- 
+
 		function showTab() {
 			var selectedId = getHash( this.getAttribute('href') );
 			// Highlight the selected tab, and dim all others.
@@ -265,13 +298,13 @@
 					contentDivs[id].className = 'tabContent hide';
 				}
 			}
- 
-		// Stop the browser following the link
-			return false;
-		}
 
-		function dispTab(selectedId) {
- 
+		// Stop the browser following the link
+		return false;
+	}
+
+	function dispTab(selectedId) {
+
 			// Highlight the selected tab, and dim all others.
 			// Also show the selected content div, and hide all others.
 			for ( var id in contentDivs ) {
@@ -283,26 +316,26 @@
 					contentDivs[id].className = 'tabContent hide';
 				}
 			}
- 
+
 		// Stop the browser following the link
-			return false;
-		}
- 
-		function getFirstChildWithTagName( element, tagName ) {
-			for ( var i = 0; i < element.childNodes.length; i++ ) {
-				if ( element.childNodes[i].nodeName == tagName ) return element.childNodes[i];
-			}
-		}
- 
-		function getHash( url ) {
-			var hashPos = url.lastIndexOf ( '#' );
-			return url.substring( hashPos + 1 );
-		}
+		return false;
+	}
 
-		function redirectToProfile(form) {
-			var search = form.name.value;
+	function getFirstChildWithTagName( element, tagName ) {
+		for ( var i = 0; i < element.childNodes.length; i++ ) {
+			if ( element.childNodes[i].nodeName == tagName ) return element.childNodes[i];
+		}
+	}
 
-			if (window.XMLHttpRequest) {
+	function getHash( url ) {
+		var hashPos = url.lastIndexOf ( '#' );
+		return url.substring( hashPos + 1 );
+	}
+
+	function redirectToProfile(form) {
+		var search = form.name.value;
+
+		if (window.XMLHttpRequest) {
 				// code for IE7+, Firefox, Chrome, Opera, Safari
 				xmlhttp3=new XMLHttpRequest();
 			}
@@ -359,4 +392,4 @@
 			loadTrending(currentIndex);
 		}
 	</script>
-</html>
+	</html>

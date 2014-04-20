@@ -1,17 +1,44 @@
 <html>
 	<head>
 		<title> my web page </title>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
 
+		<link href="css/bootstrap.min.css" rel="stylesheet">
+
+		<link href="css/bootstrap-theme.min.css" rel="stylesheet">
 		<link rel="stylesheet" type="text/css" href="style.css">
+		<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
 	</head>
 
-	<body onload = "init()">
 
-	<ul id="tabs">
-			<li><a href="#tab1">Login</a></li>
-			<li><a href="#tab2">New User</a></li>
-	</ul>
-	 
+
+
+
+	<body onload="init()">
+	<div class="navbar navbar-inverse navbar-fixed-top " role="navigation">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#">MemeDB</a>
+			</div>
+			<div class="navbar-collapse collapse">
+				<ul id = "tabs" class="nav navbar-nav">
+					<li><a href="#tab1">Login</a></li>
+					<li><a href="#tab2">New User</a></li>
+
+				</ul>
+			</div><!--/.nav-collapse -->
+		</div>
+	</div>
+	 <div class="container">
 	<div class="tabContent" id="tab1">
 		<FORM NAME ="form1" METHOD ="POST" >
 			Username:
@@ -43,7 +70,7 @@
 			<br>
 		</form>
 	</div>
-
+</div>
 	<div id = "txtHint"> </div>
 
 	<script type = "text/javascript">

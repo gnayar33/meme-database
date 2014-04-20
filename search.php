@@ -17,7 +17,7 @@
 		echo "No results";
 		exit;
 	}
-	echo '<table style="width:100%" border="1"><tr><th  class = "searchth">Result</th><th  class = "searchth">Value</th></tr>';
+	echo '<table class="table table-striped table-bordered table-condensed table-hover"><tr><th  class = "searchth">Result</th><th  class = "searchth">Value</th></tr>';
 	while($row = pg_fetch_row($result)){
 		echo '<tr>';
 		echo '<td  class = "searchtd">Profile:</td><td  class = "searchtd"> <a href = \'javascript:loadProfile("' . $row[1] . '");dispTab("tab5");\'>' . $row[1] . '</a></td>'; 
