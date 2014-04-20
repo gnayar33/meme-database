@@ -6,6 +6,6 @@
 	$jpeg = fopen($temp,"r");
 	$image = fread($jpeg,filesize($temp));
 	echo $image;
-	//unlink($temp);
+	unlink($temp);
 
 ?>

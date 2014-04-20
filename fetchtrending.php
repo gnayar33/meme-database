@@ -69,7 +69,7 @@
 		exit;
 	}
 
-	echo '<table class="table table-striped table-bordered table-condensed table-hover">';
+	echo '<table id="comments" class="table table-striped table-bordered table-condensed table-hover">';
 	while($row = pg_fetch_row($result2)){
 		echo '<tr>';
 		echo '<td  class = "searchtd">' . $row[0] . '</td><td  class = "searchtd">' . $row[1] . '</td>'; 
@@ -79,7 +79,7 @@
 
 	echo '<div class = "form-group">
 		<form name = "myform" action = "" method = "GET">
-			<input type = "text" class = "form-control" name = "name" placeholder ="Comment" maxlength="10"><br>	
+			<input type = "text" class = "form-control" name = "name" placeholder ="Comment" maxlength="140"><br>	
 				<input type = "button" class = "btn btn-default" value = "Submit" onClick = "addComment(this.form, ' . $arr['mid'] . ')" >
 			</form>
 		</div>';

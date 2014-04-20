@@ -391,6 +391,27 @@ if (!isset($_SESSION["userName"])){
 			xmlhttp3.send();
 		}
 
+		function addComment(form, mid) {
+		var comment = form.name.value;
+
+		if (window.XMLHttpRequest) {
+				// code for IE7+, Firefox, Chrome, Opera, Safari
+				xmlhttp7=new XMLHttpRequest();
+			}
+			else {
+				// code for IE6, IE5
+				xmlhttp7=new ActiveXObject("Microsoft.XMLHTTP");
+			}
+			xmlhttp7.onreadystatechange=function() {
+				if (xmlhttp7.readyState==4 && xmlhttp7.status==200) {
+					document.getElementById("comments").innerHTML = xmlhttp7.responseText;
+				}
+			}
+			
+			xmlhttp7.open("GET","addcomment.php?comment=" + comment+"&mid="+mid,true);
+			xmlhttp7.send();
+		}
+
 		function loadTrending(selectedIndex) {
 			if (window.XMLHttpRequest) {
 				// code for IE7+, Firefox, Chrome, Opera, Safari
