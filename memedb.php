@@ -50,9 +50,6 @@ if (!isset($_SESSION["userName"])){
 		</div>
 	</div>
 
-
-	<div align = "right"><a href ="login.html">Log Out</a> </div>
-
 	<div class="container">
 		<div class="tabContent" id="tab1">
 			<div id="newsFeed" align = "center">
@@ -77,17 +74,23 @@ if (!isset($_SESSION["userName"])){
 
 		<div class="tabContent" id="tab3">
 
-
+		<div class = "form-group">
 			<form enctype="multipart/form-data" action="image.php" method="POST">
 
-				<input type="hidden" name="MAX_FILE_SIZE" value="300000" />
-				Caption : <input type="text" name="name" size="25" length="25" value="">
+				<input type="hidden"  name="MAX_FILE_SIZE" value="300000" />
+				<input type="text"class="form-control"  placeholder ="Caption" name="name" size="25" length="25" value="">
 				<br>
 				<input type="hidden" name="MAX_FILE_SIZE" value="300000" />
-				File: <input name="userfile" type="file" size="25"/>
+				<input name="userfile" placeholder ="File" type="file" size="25"/>
 				<br>
-				<input type="submit" value="Upload" />
+				<label>
+				<input name="prof" type="checkbox"> Set As Profile Picture
+				</label>
+				<div>
+				<input type="submit" class = "btn btn-default" value = "Submit" />
+				</div>
 			</form>
+			</div>
 		</div>
 		<div class="tabContent" id="tab4">
 
