@@ -161,9 +161,9 @@ if (!isset($_SESSION["userName"])){
 		document.getElementById('profFrame').src = "profile.php?username=" + newProfile;
 	}
 
-	function newLike(username, loggeduser, image, notLiked) {
+	function newLike(loggeduser, image, notLiked, source) {
 		
-		if (window.XMLHttpRequest) {
+			if (window.XMLHttpRequest) {
 				// code for IE7+, Firefox, Chrome, Opera, Safari
 				xmlhttp4=new XMLHttpRequest();
 			} else {
@@ -172,27 +172,46 @@ if (!isset($_SESSION["userName"])){
 			}
 			xmlhttp4.onreadystatechange=function() {
 				if (xmlhttp4.readyState==4 && xmlhttp4.status==200) {
-					document.getElementById(image).innerHTML = xmlhttp4.responseText + " like(s)";
+					if (source == "trend") {
+						document.getElementById("tl" + image).innerHTML = xmlhttp4.responseText + " like(s)";
+					} else {
+						document.getElementById(image).innerHTML = xmlhttp4.responseText + " like(s)";
+					}
 					if (notLiked) {
-						document.getElementById("c" + image).innerHTML = "Unlike";
-						document.getElementById("c" + image).onclick = function() {
-							newLike(username, loggeduser, image, false);
+						if (source == "trend") {
+							document.getElementById("t" + image).innerHTML = "Unlike";
+							document.getElementById("t" + image).onclick = function() {
+								newLike(loggeduser, image, false, "trend");
+							}
+						} else {
+							document.getElementById("c" + image).innerHTML = "Unlike";
+							document.getElementById("c" + image).onclick = function() {
+								newLike(loggeduser, image, false, "feed");
+							}
 						}
 					} else {
-						document.getElementById("c" + image).innerHTML = "Like";
-						document.getElementById("c" + image).onclick = function() {
-							newLike(username, loggeduser, image, true);
+						if (source == "trend") {
+							document.getElementById("t" + image).innerHTML = "Like";
+							document.getElementById("t" + image).onclick = function() {
+								newLike(loggeduser, image, true, "trend");
+							}
+						} else {
+							document.getElementById("c" + image).innerHTML = "Like";
+							document.getElementById("c" + image).onclick = function() {
+								newLike(loggeduser, image, true, "feed");
+							}
 						}
 					}
 				}
 			}
-
+		
 			var userName = "<?php echo ($_GET['username']); ?>";
 			xmlhttp4.open("GET","newLike.php?username=" + loggeduser + "&image=" + image 
-				+ "&owner=" + username + "&notLiked=" + notLiked,true);
+					+ "&notLiked=" + notLiked,true);
 			xmlhttp4.send();
 			
 		}
+
 
 		function loadNewsFeed() {
 			

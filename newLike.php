@@ -2,7 +2,6 @@
 <?PHP
 	$username = $_GET['username'];
 	$image = $_GET['image'];
-	$owner = $_GET['owner'];
 	$notLiked = $_GET['notLiked'];
 
 	$conn = pg_connect("dbname=db host=postgres user=njiang password=asdfasdf");

@@ -50,34 +50,27 @@
 				$likes = $arr2['count'];
 			}
 
+			echo '<table style="background:white; width:75%; border-width: thin">';
+			echo '<tr><td width = 5%></td><td align = "middle" width = 65%>';
+			echo '<b><font size = 16>' . $arr['caption'] . '</font></b><br>';
+			echo '<a href = "javascript:loadProfile(&quot;' 
+				. $arr['username'] . '&quot;);dispTab(&quot;tab5&quot;);">' 
+				. $arr['username'] . '</a>' . '<br>';			
+			echo '<IMG SRC=showimage.php?index=d' . $i . '> <br>';
+			echo '</td><td align = "middle" width = 20%>';
+			
 			if (pg_fetch_all($result3) == false) {
-				$likeLink = 'newLike(&quot;' . $username . '&quot;,&quot;' . 
-					$loggedUser . '&quot;,&quot;' . $oid . '&quot;, true)';
-
-				echo '<table style="background:white; width:75%; border-width: thin">
-				<tr><td width = 5%></td><td align = "middle" width = 65%>
-				<b><font size = 16>' . $arr['caption'] . '</font></b><br>'
-				. '<a href = "javascript:loadProfile(&quot;' 
-				. $arr['username'] . '&quot;);dispTab(&quot;tab5&quot;);">' 
-				. $arr['username'] . '</a>' . '<br>				
-				<IMG SRC=showimage.php?index=d' . $i . '> <br>
-				</td><td align = "middle" width = 20%><button id = c' . $oid . ' type = "button" onclick="' . $likeLink . '">Like</button> 
-				<div id = ' . $oid . '>' . $likes . " like(s)"
-				. '</div><br>' . substr($arr['uploadtime'], 0, 19) . '</td><td width = 10%></tr></tr></table><br><br>';
+				$likeLink = 'newLike(&quot;' . 
+					$loggedUser . '&quot;,&quot;' . $oid . '&quot;, true, &quot;feed&quot;)';
+				echo '<button id = c' . $oid . ' type = "button" onclick="' . $likeLink . '">Like</button>';
 			} else {
-				$likeLink = 'newLike(&quot;' . $username . '&quot;,&quot;' . 
-					$loggedUser . '&quot;,&quot;' . $oid . '&quot;, false)';
-				echo '<table style="background:white; width:75%; border-width: thin">
-				<tr><td width = 5%></td><td align = "middle" width = 65%>
-				<b><font size = 16>' . $arr['caption'] . '</font></b><br>'
-				. '<a href = "javascript:loadProfile(&quot;' 
-				. $arr['username'] . '&quot;);dispTab(&quot;tab5&quot;);">' 
-				. $arr['username'] . '</a>' . '<br>				
-				<IMG SRC=showimage.php?index=d' . $i . '> <br>
-				</td><td align = "middle" width = 20%><button id = c' . $oid . ' type = "button" onclick="' . $likeLink . '">Unlike</button> 
-				<div id = ' . $oid . '>' . $likes . " like(s)"
-				. '</div><br>' . substr($arr['uploadtime'], 0, 19) . '</td><td width = 10%></tr></tr></table><br><br>';
+				$likeLink = 'newLike(&quot;' . 
+					$loggedUser . '&quot;,&quot;' . $oid . '&quot;, false, &quot;feed&quot;)';
+				echo '<button id = c' . $oid . ' type = "button" onclick="' . $likeLink . '">Unlike</button>';
 			}
+			echo '<div id = ' . $oid . '>' . $likes . " like(s)" . '</div>';
+			echo '<br>' . substr($arr['uploadtime'], 0, 19) . '</td>';
+			echo '<td width = 10%></tr></tr></table><br><br>';
 			
 		}
 	
