@@ -25,7 +25,7 @@
 		for ($i = 0; $i < count(pg_fetch_all($result)); $i++) {
 			$arr = pg_fetch_array($result, $i, PGSQL_ASSOC);
 			$oid = $arr['image'];
-			$temp = '/cise/homes/njiang/public_html/images/tmpe' . $i . '.jpg';
+			$temp = '/cise/homes/njiang/public_html/images/tmpe' . $loggedUser . $i . '.jpg';
 			pg_query($conn, "begin");
 			pg_lo_export($conn, $oid, $temp); 
 			pg_query($conn, "commit");
@@ -50,27 +50,26 @@
 				$likes = $arr2['count'];
 			}
 
-			echo '<table style="background:white; width:75%; border-width: thin">';
-			echo '<tr><td width = 5%></td><td align = "middle" width = 65%>';
-			echo '<b><font size = 16>' . $arr['caption'] . '</font></b><br>';
+						echo '<div class="jumbotron">';
+			echo '<div ><h2>' . $arr['caption'] . '</h2><h4>';
 			echo '<a href = "javascript:loadProfile(&quot;' 
 				. $arr['username'] . '&quot;);dispTab(&quot;tab5&quot;);">' 
-				. $arr['username'] . '</a>' . '<br>';			
-			echo '<IMG SRC=showimage.php?index=e' . $i . '> <br>';
-			echo '</td><td align = "middle" width = 20%>';
+				. $arr['username'] . '</a>' . '</h4></div>';			
+			echo '<div align = "center"><p><IMG class="img-rounded img-responsive" SRC=showimage.php?index=e' . $loggedUser . $i . '> </p></div>';
 			
+			echo '<div align="center">';
 			if (pg_fetch_all($result3) == false) {
 				$likeLink = 'newLike(&quot;' . 
-					$loggedUser . '&quot;,&quot;' . $oid . '&quot;, true, &quot;fav&quot;)';
-				echo '<button id = f' . $oid . ' type = "button" onclick="' . $likeLink . '">Like</button>';
+					$loggedUser . '&quot;,&quot;' . $oid . '&quot;, true, &quot;feed&quot;)';
+				echo '<button id = c' . $oid . ' class="btn btn-success" type = "button" onclick="' . $likeLink . '">Like</button>';
 			} else {
 				$likeLink = 'newLike(&quot;' . 
-					$loggedUser . '&quot;,&quot;' . $oid . '&quot;, false, &quot;fav&quot;)';
-				echo '<button id = f' . $oid . ' type = "button" onclick="' . $likeLink . '">Unlike</button>';
+					$loggedUser . '&quot;,&quot;' . $oid . '&quot;, false, &quot;feed&quot;)';
+				echo '<button id = c' . $oid . ' class="btn btn-danger" type = "button" onclick="' . $likeLink . '">Unlike</button>';
 			}
-			echo '<div id = fl' . $oid . '>' . $likes . " like(s)" . '</div>';
-			echo '<br>' . substr($arr['uploadtime'], 0, 19) . '</td>';
-			echo '<td width = 10%></tr></tr></table><br><br>';
+			echo '<div id = ' . $oid . '>' . $likes . " like(s)" . '</div>';
+			echo  substr($arr['uploadtime'], 0, 19) . '</td>';
+			echo '</div></div>';
 			
 		}
 	

@@ -12,9 +12,8 @@ if (!isset($_SESSION["userName"])){
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>%TITLE%</title>
 
-	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<link href="http://bootswatch.com/slate/bootstrap.min.css" rel="stylesheet">
 	<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
-	<link href="css/bootstrap-theme.min.css" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="style.css">
 	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
@@ -22,7 +21,7 @@ if (!isset($_SESSION["userName"])){
 </head>
 
 <body onload="init()">
-	<div class="navbar navbar-inverse navbar-fixed-top " role="navigation">
+	<div class="navbar navbar-fixed-top " role="navigation">
 		<div class="container">
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -53,7 +52,7 @@ if (!isset($_SESSION["userName"])){
 
 	<div class="container">
 		<div class="tabContent" id="tab1">
-			<div id="newsFeed" align = "center">
+			<div id="newsFeed">
 
 
 			</div>
@@ -61,23 +60,19 @@ if (!isset($_SESSION["userName"])){
 		</div>
 
 		<div class="tabContent" id="tab2">
-			<table width = 100% height = 90%>
-				<tr>
 
-					<td width = "15%" align = "right"> <a href = "javascript:trendLeft();"><i class="fa fa-angle-left fa-5x"></i></a></td>
-					<td width = "70%" height = 100%>
-						<div id = "trendDiv" align = "center"> </div>
-					</td>
-					<td width = "15%" align = "left"> <a href = "javascript:trendRight();"><i class="fa fa-angle-right fa-5x"></i></a></td>
-				</tr>
-			</table>
+					<div class = "row">
+					<div class = "col-md-1" align="left" align-vertical=><a href = "javascript:trendLeft();"><i class="fa fa-angle-left fa-5x"></i></a></div>
+					<div id = "trendDiv" align = "center" class = "col-md-9"> </div>
+					<div class = "col-md-1" align = "right"><a href = "javascript:trendRight();"><i class="fa fa-angle-right fa-5x"></i></a></div>
+					</div>
 
 		</div>
 
 		<div class="tabContent" id="tab3">
 
 
-		<div class = "form-group">
+		<div class = "form-horizontal">
 			<form enctype="multipart/form-data" action="image.php" method="POST">
 
 				<input type="hidden"  name="MAX_FILE_SIZE" value="300000" />
@@ -99,7 +94,7 @@ if (!isset($_SESSION["userName"])){
 
 			
 			<div class = "form-group">
-				<form name = "myform" action = "" method = "GET">
+				<form name = "myform">
 					<input type = "text" class = "form-control" name = "name" placeholder ="Search" maxlength="10"><br>
 					
 					<input type = "button" class = "btn btn-default" value = "Submit" onClick = "redirectToProfile(this.form)" >
@@ -115,20 +110,16 @@ if (!isset($_SESSION["userName"])){
 		</div>
 
 		<div class="tabContent" id="tab5">
-			<table width = 100% height = 90%>
-				<tr>
-					<td width = "85%" height = 100%>
-						<iframe id = "profFrame" width = "95%" height = "95%"></iframe>
-					</td>
-					<td align = "center">
+				<div class = "row">
+					
+					<div class ="col-md-11"><iframe id = "profFrame" width = "100%" height = "100%"></iframe></div>
+					
+					<div class = "col-md-1">
 						<div id = "userLink"> </div><br><br>
 						Your Friends: <br><br>
-						<div id = "followerTable">
-
-						</div>
-					</td>
-				</tr>
-			</table>
+						<div id = "followerTable"></div>
+					</div>
+				</div>
 		</div>
 		<div class="tabContent" id="tab6">
 			<div id="favorites" align = "center">
@@ -191,17 +182,20 @@ if (!isset($_SESSION["userName"])){
 							document.getElementById("t" + image).onclick = function() {
 								newLike(loggeduser, image, false, "trend");
 							}
+							document.getElementById("t" + image).className = "btn btn-danger";
+
 						} else if (source == "fav") {
 							document.getElementById("f" + image).innerHTML = "Unlike";
 							document.getElementById("f" + image).onclick = function() {
 								newLike(loggeduser, image, false, "fav");
 							}
-
+							document.getElementById("f" + image).className = "btn btn-danger";
 						} else {
 							document.getElementById("c" + image).innerHTML = "Unlike";
 							document.getElementById("c" + image).onclick = function() {
 								newLike(loggeduser, image, false, "feed");
 							}
+							document.getElementById("c" + image).className = "btn btn-danger";
 						}
 					} else {
 						if (source == "trend") {
@@ -209,19 +203,24 @@ if (!isset($_SESSION["userName"])){
 							document.getElementById("t" + image).onclick = function() {
 								newLike(loggeduser, image, true, "trend");
 							}
+							document.getElementById("t" + image).className = "btn btn-success";
 						} else if (source == "fav") { 
 							document.getElementById("f" + image).innerHTML = "Like";
 							document.getElementById("f" + image).onclick = function() {
 								newLike(loggeduser, image, true, "fav");
 							}
+							document.getElementById("f" + image).className = "btn btn-success";
 						} else {
 							document.getElementById("c" + image).innerHTML = "Like";
 							document.getElementById("c" + image).onclick = function() {
 								newLike(loggeduser, image, true, "feed");
 							}
+							document.getElementById("c" + image).className = "btn btn-success";
 						}
 					}
 				}
+				loadFavorites();
+				
 			}
 		
 			var userName = "<?php echo ($_GET['username']); ?>";
@@ -356,7 +355,7 @@ if (!isset($_SESSION["userName"])){
 			}
 
 		// Stop the browser following the link
-		return false;
+		// return false;
 	}
 
 	function getFirstChildWithTagName( element, tagName ) {
@@ -369,7 +368,11 @@ if (!isset($_SESSION["userName"])){
 		var hashPos = url.lastIndexOf ( '#' );
 		return url.substring( hashPos + 1 );
 	}
-
+	function searchkey(e, form) {
+		if (e.keyCode == 13) {
+			redirectToProfile(form);
+		}
+	}
 	function redirectToProfile(form) {
 		var search = form.name.value;
 
@@ -436,7 +439,6 @@ if (!isset($_SESSION["userName"])){
 					}
 				}
 			}
-			
 			xmlhttp3.open("GET","fetchtrending.php?index=" + selectedIndex,true);
 			xmlhttp3.send();
 		}

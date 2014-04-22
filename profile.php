@@ -2,20 +2,26 @@
 <html>
 	<head>
 		<title>%TITLE%</title>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>%TITLE%</title>
+
+		<link href="http://bootswatch.com/slate/bootstrap.min.css" rel="stylesheet">
+		<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
 		<link rel="stylesheet" type="text/css" href="style.css">
-		<style>
-			
-		</style>
+		<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
 	</head>
 
 	<body onload = "init()">
 		<table align = "center" height = 100% width = 100%>
-			<tr bgcolor = "white">
-				<td width = 50% align = "center"> <div id="profPic"> </div> </td>
-				<td width = 30% align = "center"> 
+			<tr>
+				<td width = 40% align = "center"> <div class = "jumbotron" id="profPic"> </div> </td></tr><tr>
+				<td width = 40% align = "center"> 
 					<div id = "username"> </div> <br> 
-					<div id = "profile"> </div> <br>
-					<div id = "following"> </div>
+					<div id = "profile"> </div> <br><p>
+					<div id = "following"> </div></p>
 				</td>
 			</tr>
 			<tr>
@@ -118,14 +124,16 @@
 							document.getElementById("b" + image).onclick = function() {
 								newLike(username, loggeduser, image, false);
 							}
-
+							document.getElementById("b" + image).className = "btn btn-failure";
 						} else {
 							document.getElementById("b" + image).innerHTML = "Like";
 							document.getElementById("b" + image).onclick = function() {
 								newLike(username, loggeduser, image, true);
 							}
+							document.getElementById("b" + image).className = "btn btn-success";
 						}
 					}
+					parent.loadFavorites();
 				}
 		
 				var userName = "<?php echo ($_GET['username']); ?>";
@@ -150,11 +158,13 @@
 							document.getElementById("follow").onclick = function() {
 								follow(username, follower, false);
 							}
+							document.getElementById("follow").className = "btn btn-success";
 						} else {
 							document.getElementById("follow").innerHTML = "Unfollow";
 							document.getElementById("follow").onclick = function() {
 								follow(username, follower, true);
 							}
+							document.getElementById("follow").className = "btn btn-warning";
 						}
 						parent.loadFollowers();
 						parent.loadNewsFeed();

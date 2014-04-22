@@ -15,7 +15,7 @@
 		exit;
 	}
 
-	$temp = '/cise/homes/njiang/public_html/images/tmpt' . $i . '.jpg';
+	$temp = '/cise/homes/njiang/public_html/images/tmpt' . $loggedUser . $selectedIndex . '.jpg';
 	$oid = $arr['image'];
 
 	pg_query($conn, "begin");
@@ -40,26 +40,35 @@
 		$likes = $arr2['count'];
 	}
 
-
+	echo '<div class="jumbotron">';
+	echo '<h2>' . $arr['caption'] . '</h2><h4>';
 	echo '<a href = "javascript:loadProfile(&quot;' 
-				. $arr['username'] . '&quot;);dispTab(&quot;tab5&quot;);">' 
-				. $arr['username'] . '</a>';//ECHO NAME
-	echo "<br>";
-	echo '<IMG SRC=showimage.php?index=t><br>';//ECHO IMAGE
-	echo "<b>" . $arr['caption'] . "</b><br>";//ECHO CAPTION
-	echo '#' . $selectedIndex . '<br>';
+		. $arr['username'] . '&quot;);dispTab(&quot;tab5&quot;);">' 
+		. $arr['username'] . '</a>' . '</h4>';			
+	echo '<div align = "center"><p><IMG class="img-rounded img-responsive" SRC=showimage.php?index=t' . $loggedUser . $selectedIndex . '> </p></div>';
+	
+	echo '<div align="center"><div class="left">';
 	if (pg_fetch_all($result3) == false) {
 		$likeLink = 'newLike(&quot;' . 
-		$loggedUser . '&quot;,&quot;' . $oid . '&quot;, true, &quot;trend&quot;)';
-		echo '<button id = t' . $oid . ' type = "button" onclick="' . $likeLink . '">Like</button>';
+			$loggedUser . '&quot;,&quot;' . $oid . '&quot;, true, &quot;feed&quot;)';
+		echo '<button id = c' . $oid . ' class="btn btn-success" type = "button" onclick="' . $likeLink . '">Like</button>';
 	} else {
 		$likeLink = 'newLike(&quot;' . 
-		$loggedUser . '&quot;,&quot;' . $oid . '&quot;, false, &quot;trend&quot;)';
-
-		echo '<button id = t' . $oid . ' type = "button" onclick="' . $likeLink . '">Unlike</button>';
+			$loggedUser . '&quot;,&quot;' . $oid . '&quot;, false, &quot;feed&quot;)';
+		echo '<button id = c' . $oid . ' class="btn btn-danger" type = "button" onclick="' . $likeLink . '">Unlike</button>';
 	}
 
-	echo '<div id = tl' . $oid . '>' . $likes . " like(s)". '</div>';
+	echo '</div><div class="right"><div id = ' . $oid . '>' . $likes . " like(s)" . '</div>';
+	echo  substr($arr['uploadtime'], 0, 19) . '</div>';
+	echo '#' . $selectedIndex . '<br>';
+	echo '</div></div>';
+
+
+
+	
+	
+
+	
 	//echo $arr['mid'];
 	$query2 = sprintf("select username,comment from comments,users where comments.mid = '" . $arr['mid'] . "'  and comments.userid = users.userid");
 	//echo $query2;
